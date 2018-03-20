@@ -4,7 +4,7 @@ export default function categories(state = {}, action) {
   switch (action.type) {
     case ADD_CATEGORIES:
       return {
-        ...action
+        ...action.categories
       };
     default:
       return state;

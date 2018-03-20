@@ -4,10 +4,15 @@ import { connect } from "react-redux";
 class Result extends Component {
   render() {
     const { categories } = this.props;
-    console.log(categories);
     return (
-      <div>
-        <h1>Hello World</h1>
+      <div className="category-container">
+        {categories.map(category => {
+          return (
+            <div className="category" key={category.category}>
+              <p>{category.category}</p>
+            </div>
+          );
+        })}
       </div>
     );
   }
@@ -16,11 +21,11 @@ class Result extends Component {
 function mapToState({ categories }) {
   const categoryArray = Object.keys(categories)
     .map(name => {
-      const { category, number, img } = categories[name];
+      const { category, number, image } = categories[name];
       return {
         category,
         number,
-        img
+        image
       };
     })
     .sort((a, b) => {
@@ -33,10 +38,6 @@ function mapToState({ categories }) {
         return 1;
       }
     });
-
-  console.log("test");
-  console.log(categoryArray);
-  console.log("test");
 
   return {
     categories: categoryArray

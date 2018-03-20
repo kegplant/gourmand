@@ -74,6 +74,22 @@ button:focus {
   font-family: "Maven Pro", sans-serif;
 }
 
+.category-container {
+  display: flex;
+  direction: row;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+.category {
+  width: 8rem;
+  height: 8rem;
+  text-align: center;
+  border: 1px solid black;
+  margin: 1rem;
+  padding-top: 3rem;
+}
+
 input {
   border-radius: 0.5rem;
 }

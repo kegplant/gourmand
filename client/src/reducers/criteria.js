@@ -6,7 +6,7 @@ export default function changeCriteria(state = {}, action) {
     case CHANGE_CRITERIA:
       return {
         ...state,
-        ...action
+        ...action.criteria
       };
     default:
       return state;
