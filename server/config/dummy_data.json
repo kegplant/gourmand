@@ -1,0 +1,67 @@
+[
+  {
+    "category": "Thai",
+    "number": 12,
+    "image": "static/images/thai.png"
+  },
+  {
+    "category": "Burgers",
+    "number": 12,
+    "image": "static/images/burgers.png"
+  },
+  {
+    "category": "BBQ",
+    "number": 12,
+    "image": "static/images/bbq.png"
+  },
+  {
+    "category": "Mexican",
+    "number": 12,
+    "image": "static/images/mexican.png"
+  },
+  {
+    "category": "Pho",
+    "number": 12,
+    "image": "static/images/pho.png"
+  },
+  {
+    "category": "Sandwich",
+    "number": 12,
+    "image": "static/images/sandwhich.png"
+  },
+  {
+    "category": "French",
+    "number": 12,
+    "image": "static/images/french.png"
+  },
+  {
+    "category": "Mongolian",
+    "number": 12,
+    "image": "static/images/mongolian.png"
+  },
+  {
+    "category": "Sushi",
+    "number": 12,
+    "image": "static/images/sushi.png"
+  },
+  {
+    "category": "Diner",
+    "number": 12,
+    "image": "static/images/diner.png"
+  },
+  {
+    "category": "Italian",
+    "number": 12,
+    "image": "static/images/italian.png"
+  },
+  {
+    "category": "Chinese",
+    "number": 12,
+    "image": "static/images/chinese.png"
+  },
+  {
+    "category": "Pizza",
+    "number": 12,
+    "image": "static/images/pizza.png"
+  }
+]
