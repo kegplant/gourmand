@@ -2,6 +2,7 @@ const yelp = require("yelp-fusion");
 const config = require("../config/config.json");
 const apiKey = config.yelp.Key;
 const client = yelp.client(apiKey);
+const categories = require("../config/dummy_data.json");
 // const testQuery = {
 //   //should have been req.body
 //   term: "food: mexican",
@@ -19,7 +20,7 @@ module.exports = {
     //   .catch(e => {
     //     console.log(e);
     //   });
-    res.send({ result: "response" });
+    res.json(categories);
   },
   formatQuery: function(queryObject) {
     //code to format the query
