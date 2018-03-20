@@ -1,11 +1,17 @@
 import React, { Component } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import New from "./New";
+import Poll from "./Poll";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <h1>Hello Gourmand!</h1>
-      </div>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={New} />
+          <Route exact path="/:id" component={Poll} />
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
