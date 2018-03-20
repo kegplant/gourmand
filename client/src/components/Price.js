@@ -24,23 +24,59 @@ class Price extends Component {
     );
   };
   render() {
+    const { price } = this.state;
     return (
       <div>
         <h5>Price</h5>
         <div className="price-container">
-          <button onClick={this.handleSelection} value="1" name="price">
+          <button
+            onClick={this.handleSelection}
+            value="1"
+            name="price"
+            style={{
+              background: price === "1" ? "#ECECEC" : "none"
+            }}
+          >
             Any
           </button>
-          <button onClick={this.handleSelection} value="2" name="price">
+          <button
+            onClick={this.handleSelection}
+            style={{
+              background: price === "2" ? "#ECECEC" : "none"
+            }}
+            value="2"
+            name="price"
+          >
             $
           </button>
-          <button onClick={this.handleSelection} value="3" name="price">
+          <button
+            style={{
+              background: price === "3" ? "#ECECEC" : "none"
+            }}
+            onClick={this.handleSelection}
+            value="3"
+            name="price"
+          >
             $$
           </button>
-          <button onClick={this.handleSelection} value="4" name="price">
+          <button
+            style={{
+              background: price === "4" ? "#ECECEC" : "none"
+            }}
+            onClick={this.handleSelection}
+            value="4"
+            name="price"
+          >
             $$$
           </button>
-          <button onClick={this.handleSelection} value="5" name="price">
+          <button
+            style={{
+              background: price === "5" ? "#ECECEC" : "none"
+            }}
+            onClick={this.handleSelection}
+            value="5"
+            name="price"
+          >
             $$$$
           </button>
         </div>

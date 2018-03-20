@@ -58,6 +58,7 @@ class Location extends Component {
             name="address"
             onChange={this.handleAddressSelection}
             type="text"
+            value="566 Arguello Way, Stanford, CA"
             placeholder="enter address"
           />
         </div>
