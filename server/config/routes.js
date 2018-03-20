@@ -8,7 +8,7 @@
 // ( Change the "controller" variable name and the controller file name 
 // within the 'controllers' directory. )
 var controller = require('../controllers/controller_name_plural.js');
-
+var yelpQueries=require('../controllers/yelpQueries.js');
 // Export all routes to server.js:
 module.exports = function(app) {
 
@@ -21,5 +21,7 @@ module.exports = function(app) {
     app.get('/users', function(request, response) {
         controller.getControllerMethod(request, response); //<-- CHANGE "controller" variable name(2)
     }) // <-- DO NOT ADD COMMAS if ADDING ROUTES BELOW.
-
+    app.get('/yelpQueries',function(request,response){
+        yelpQueries.searchOne(request,response);
+    })
 }
