@@ -36,7 +36,19 @@ module.exports = {
                 categories[category.title] = categories[category.title] ? categories[category.title] + 1 : 1;
             })
         })
-        return categories;
+        // categories=Object.entries(categories);
+        let categoryList = []
+        for (category in categories) {
+            let entry = {
+                category: category,
+                number: categories[category],
+                image: "static/images/chinese.png"
+            }
+            categoryList.push(entry); //could use some optimization
+        }
+        categoryList.sort((a, b) => b.number - a.number)
+        console.log(categoryList)
+        return categoryList;
     }
 
 };
