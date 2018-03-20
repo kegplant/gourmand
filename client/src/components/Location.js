@@ -6,17 +6,19 @@ class Location extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      location: 3,
+      location: "3",
       address: "566 Arguello Way, Stanford, CA"
     };
   }
 
   handleLocationSelection = event => {
+    const { address } = this.state;
     const { value } = event.target;
     this.setState(() => ({
       location: value
     }));
     const { dispatch } = this.props;
+
     dispatch(
       handleCriteriaChange({
         location: value
@@ -26,10 +28,12 @@ class Location extends Component {
 
   handleAddressSelection = event => {
     const { value } = event.target;
+    console.log(value);
     this.setState(() => ({
       address: value
     }));
     const { dispatch } = this.props;
+
     dispatch(
       handleCriteriaChange({
         address: value
@@ -41,12 +45,8 @@ class Location extends Component {
     return (
       <div>
         <h5>Distance</h5>
-        <div
-          className="location-container"
-          name="location"
-          onChange={this.handleLocationSelection}
-        >
-          <select>
+        <div className="location-container">
+          <select name="location" onChange={this.handleLocationSelection}>
             <option value="1">1 mile</option>
             <option value="2">2 mile</option>
             <option value="3">3 mile</option>

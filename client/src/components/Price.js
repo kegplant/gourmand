@@ -6,7 +6,7 @@ class Price extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      price: 1
+      price: "1"
     };
   }
 

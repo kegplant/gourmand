@@ -13,9 +13,9 @@ class New extends Component {
     dispatch(
       handleCriteriaChange({
         address: "566 Arguello Way",
-        location: 3,
+        location: "3",
         meal: 2,
-        price: 1
+        price: "1"
       })
     );
   }
