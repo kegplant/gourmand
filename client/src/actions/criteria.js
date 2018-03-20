@@ -1,3 +1,5 @@
+import { _getCategories } from "../utils/_API";
+
 export const CHANGE_CRITERIA = "CHANGE_CRITERIA";
 
 function changeCriteria(criteria) {
@@ -7,8 +9,12 @@ function changeCriteria(criteria) {
   };
 }
 
-export function handleCriteriaChange(criteria) {
-  return dispatch => {
-    dispatch(changeCriteria(criteria));
+export function handleCriteriaChange(newCriteria) {
+  return (dispatch, getState) => {
+    dispatch(changeCriteria(newCriteria));
+    const { criteria } = getState();
+    _getCategories(criteria).then(results => {
+      console.log(results);
+    });
   };
 }
