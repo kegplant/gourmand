@@ -6,26 +6,26 @@ class Meal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selection: 2
+      meal: 2
     };
   }
 
   handleSelection = event => {
     const { value } = event.target;
+    console.log(value);
     this.setState(() => ({
-      selection: value
+      meal: value
     }));
     const { dispatch } = this.props;
-    const { selection } = this.state;
     dispatch(
       handleCriteriaChange({
-        selection
+        meal: value
       })
     );
   };
 
   render() {
-    const { selection } = this.state;
+    const { meal } = this.state;
     return (
       <div>
         <h2 id="title">Gourmand</h2>
@@ -35,7 +35,7 @@ class Meal extends Component {
             <li
               value="1"
               style={{
-                textDecoration: selection === 1 ? "underline" : "none"
+                textDecoration: meal === 1 ? "underline" : "none"
               }}
               onClick={this.handleSelection}
             >
@@ -44,7 +44,7 @@ class Meal extends Component {
             <li
               value="2"
               style={{
-                textDecoration: selection === 2 ? "underline" : "none"
+                textDecoration: meal === 2 ? "underline" : "none"
               }}
               onClick={this.handleSelection}
             >
@@ -53,7 +53,7 @@ class Meal extends Component {
             <li
               value="3"
               style={{
-                textDecoration: selection === 3 ? "underline" : "none"
+                textDecoration: meal === 3 ? "underline" : "none"
               }}
               onClick={this.handleSelection}
             >

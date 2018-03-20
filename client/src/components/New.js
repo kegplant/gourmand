@@ -4,8 +4,21 @@ import Meal from "./Meal";
 import Type from "./Type";
 import Price from "./Price";
 import Location from "./Location";
+import { handleCriteriaChange } from "../actions/criteria";
+import Result from "./Result";
 
 class New extends Component {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(
+      handleCriteriaChange({
+        address: "566 Arguello Way",
+        location: 3,
+        meal: 2,
+        price: 1
+      })
+    );
+  }
   render() {
     return (
       <div className="container">
@@ -20,6 +33,7 @@ class New extends Component {
           </div>
           <div className="col-md-1" />
         </div>
+        <Result />
       </div>
     );
   }
