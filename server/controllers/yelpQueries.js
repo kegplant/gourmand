@@ -1,21 +1,28 @@
-const yelp = require('yelp-fusion');
-const config = require('../config/config.json');
+const yelp = require("yelp-fusion");
+const config = require("../config/config.json");
 const apiKey = config.yelp.Key;
 const client = yelp.client(apiKey);
-const testQuery={//should have been req.body
-    term:'food: mexican',
-    location: 'portland, or'
-  }
+// const testQuery = {
+//   //should have been req.body
+//   term: "food: mexican",
+//   location: "portland, or"
+// };
 module.exports = {
-    searchOne: function (req, res) {
-        client.search(testQuery).then(response => {
-            var diceRoll=Math.floor(Math.random()*response.jsonBody.businesses.length);
-            const firstResult = response.jsonBody.businesses[diceRoll];
-            const prettyJson = JSON.stringify(firstResult, null, 4);
-            console.log(prettyJson);
-            res.json(firstResult);
-        }).catch(e => {
-            console.log(e);
-        })
-    }
-}
+  categories: function(req, res) {
+    console.log(req.body);
+    // const query = this.formatQuery(req.body);
+    // client
+    //   .search(query)
+    //   .then(response => {
+    //     res.json(response);
+    //   })
+    //   .catch(e => {
+    //     console.log(e);
+    //   });
+    res.send({ result: "response" });
+  },
+  formatQuery: function(queryObject) {
+    //code to format the query
+    return {};
+  }
+};
