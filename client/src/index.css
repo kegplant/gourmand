@@ -59,6 +59,10 @@ h5 {
   border-radius: 0.5rem;
 }
 
+button:focus {
+  outline: none;
+}
+
 .meal-options li {
   list-style-type: none;
   margin: 0rem 1rem 1rem 1rem;
