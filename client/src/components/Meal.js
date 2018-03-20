@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { handleCriteriaChange } from "../actions/criteria";
+import { handleCriteriaChange } from "../actions/shared";
 
 class Meal extends Component {
   constructor(props) {

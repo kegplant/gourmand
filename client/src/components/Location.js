@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { handleCriteriaChange } from "../actions/criteria";
+import { handleCriteriaChange } from "../actions/shared";
 
 class Location extends Component {
   constructor(props) {
@@ -58,7 +58,6 @@ class Location extends Component {
             name="address"
             onChange={this.handleAddressSelection}
             type="text"
-            value="566 Arguello Way, Stanford, CA"
             placeholder="enter address"
           />
         </div>
