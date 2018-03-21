@@ -6,6 +6,7 @@ import Price from "./Price";
 import Location from "./Location";
 import { handleCriteriaChange } from "../actions/shared";
 import Result from "./Result";
+import Details from "./Details";
 
 class New extends Component {
   componentDidMount() {
@@ -23,17 +24,17 @@ class New extends Component {
     return (
       <div className="container">
         <Meal />
-        <div className="col-md-1" />
+
         <div className="row">
-          <div className="col-md-5">
+          <div className="col-md-6">
             <Price />
           </div>
-          <div className="col-md-5">
+          <div className="col-md-6">
             <Location />
           </div>
-          <div className="col-md-1" />
         </div>
         <Result />
+        <Details />
       </div>
     );
   }
