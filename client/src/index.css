@@ -87,9 +87,10 @@ button:focus {
   border: 1px solid black;
   margin: 0 auto;
   text-align: center;
-  margin: 0.5rem;
+  margin: 1rem;
   border-radius: 10px;
   box-shadow: 0.1rem 0.1rem 0.2rem grey;
+  outline-offset: 0.5rem;
 }
 
 .category-text {
