@@ -9,7 +9,8 @@ class Result extends Component {
         {categories.map(category => {
           return (
             <div className="category" key={category.category}>
-              <p>{category.category}</p>
+              <p className="category-number">{category.number}</p>
+              <p className="category-text">{category.category}</p>
             </div>
           );
         })}
