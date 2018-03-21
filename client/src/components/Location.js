@@ -9,6 +9,8 @@ class Location extends Component {
       location: "3",
       address: "566 Arguello Way, Stanford, CA"
     };
+
+    this.timeout;
   }
 
   handleLocationSelection = event => {
@@ -27,18 +29,23 @@ class Location extends Component {
   };
 
   handleAddressSelection = event => {
+    clearTimeout(this.timeout);
+
     const { value } = event.target;
-    console.log(value);
-    this.setState(() => ({
-      address: value
-    }));
     const { dispatch } = this.props;
 
-    dispatch(
-      handleCriteriaChange({
+    // Make a new timeout set to go off in 500ms
+    this.timeout = setTimeout(() => {
+      this.setState(() => ({
         address: value
-      })
-    );
+      }));
+
+      dispatch(
+        handleCriteriaChange({
+          address: value
+        })
+      );
+    }, 500);
   };
 
   render() {
@@ -55,6 +62,7 @@ class Location extends Component {
             <option value="6">Any</option>
           </select>
           <input
+            className="address"
             name="address"
             onChange={this.handleAddressSelection}
             type="text"

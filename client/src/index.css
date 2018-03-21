@@ -13,6 +13,11 @@ body {
   font-size: 40px;
 }
 
+.address {
+  width: 20rem;
+  font-size: 14px;
+}
+
 .meal-options {
   display: flex;
   direction: horizontal;
