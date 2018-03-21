@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { addSelection, removeSelection } from "../actions/selected";
 
 class Result extends Component {
   constructor(props) {
@@ -13,6 +14,18 @@ class Result extends Component {
     this.setState(() => ({
       [category]: selected
     }));
+    const { dispatch } = this.props;
+    if (selected) {
+      dispatch(
+        addSelection({
+          [category]: selected
+        })
+      );
+    }
+
+    if (!selected) {
+      dispatch(removeSelection(category));
+    }
   };
 
   selectAll = event => {
