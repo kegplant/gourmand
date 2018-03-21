@@ -47,7 +47,7 @@ class Result extends Component {
             id="defaultCheck1"
             onChange={this.selectAll}
           />
-          <label className="form-check-label" forHTML="defaultCheck1">
+          <label className="form-check-label" forhtml="defaultCheck1">
             Select All
           </label>
         </div>
