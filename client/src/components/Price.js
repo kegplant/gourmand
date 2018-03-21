@@ -12,7 +12,6 @@ class Price extends Component {
 
   handleSelection = event => {
     const { value, name } = event.target;
-    console.log(value);
     this.setState(() => ({
       price: value
     }));
