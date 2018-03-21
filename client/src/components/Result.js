@@ -4,38 +4,73 @@ import { connect } from "react-redux";
 class Result extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      checkbox: false
+    };
   }
   handleOnClick = (event, category) => {
     const selected = this.state[category] ? false : true;
-    console.log(selected);
     this.setState(() => ({
       [category]: selected
+    }));
+  };
+
+  selectAll = event => {
+    const { checkbox } = this.state;
+    let newSetting = checkbox ? false : true;
+    this.setState(() => ({
+      checkbox: newSetting
+    }));
+    const { categories } = this.props;
+    const reducer = (acc, element) => {
+      const { category } = element;
+      acc[category] = newSetting;
+      return acc;
+    };
+
+    const newState = categories.reduce(reducer, {});
+
+    this.setState(() => ({
+      ...newState
     }));
   };
 
   render() {
     const { categories } = this.props;
     return (
-      <div className="category-container">
-        {categories.map(category => {
-          return (
-            <div
-              className="category"
-              style={{
-                outline: this.state[category.category]
-                  ? "4px solid #FCDDA5"
-                  : "none"
-              }}
-              key={category.category}
-              data-id={category.category}
-              onClick={e => this.handleOnClick(e, category.category)}
-            >
-              <p className="category-number">{category.number}</p>
-              <p className="category-text">{category.category}</p>
-            </div>
-          );
-        })}
+      <div>
+        <div className="checkbox-container">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            value=""
+            id="defaultCheck1"
+            onChange={this.selectAll}
+          />
+          <label className="form-check-label" forHTML="defaultCheck1">
+            Select All
+          </label>
+        </div>
+        <div className="category-container">
+          {categories.map(category => {
+            return (
+              <div
+                className="category"
+                style={{
+                  outline: this.state[category.category]
+                    ? "4px solid #FCDDA5"
+                    : "none"
+                }}
+                key={category.category}
+                data-id={category.category}
+                onClick={e => this.handleOnClick(e, category.category)}
+              >
+                <p className="category-number">{category.number}</p>
+                <p className="category-text">{category.category}</p>
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }
