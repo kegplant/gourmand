@@ -1,7 +1,8 @@
 import {
   ADD_SELECTION,
   ADD_ALL_SELECTIONS,
-  REMOVE_SELECTION
+  REMOVE_SELECTION,
+  REMOVE_ALL_SELECTIONS
 } from "../actions/selected";
 
 export default function selection(state = {}, action) {
@@ -27,6 +28,8 @@ export default function selection(state = {}, action) {
       return {
         ...newState
       };
+    case REMOVE_ALL_SELECTIONS:
+      return {};
     default:
       return state;
   }

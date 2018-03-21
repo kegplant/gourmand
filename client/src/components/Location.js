@@ -52,7 +52,7 @@ class Location extends Component {
     return (
       <div>
         <h5>Distance</h5>
-        <div className="location-container">
+        <div className="info-container">
           <select name="location" onChange={this.handleLocationSelection}>
             <option value="1">1 mile</option>
             <option value="2">2 mile</option>

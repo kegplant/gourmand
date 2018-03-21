@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addSelection, removeSelection } from "../actions/selected";
+import {
+  addSelection,
+  removeSelection,
+  addAllSelections,
+  removeAllSelections
+} from "../actions/selected";
 
 class Result extends Component {
   constructor(props) {
@@ -31,6 +36,7 @@ class Result extends Component {
   selectAll = event => {
     const { checkbox } = this.state;
     let newSetting = checkbox ? false : true;
+    const { dispatch } = this.props;
     this.setState(() => ({
       checkbox: newSetting
     }));
@@ -46,6 +52,14 @@ class Result extends Component {
     this.setState(() => ({
       ...newState
     }));
+
+    if (newSetting) {
+      dispatch(addAllSelections(newState));
+    }
+
+    if (!newSetting) {
+      dispatch(removeAllSelections(newState));
+    }
   };
 
   render() {

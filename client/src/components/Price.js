@@ -27,7 +27,7 @@ class Price extends Component {
     return (
       <div>
         <h5>Price</h5>
-        <div className="price-container">
+        <div className="info-container">
           <button
             onClick={this.handleSelection}
             value="1"

@@ -1,6 +1,7 @@
 export const ADD_SELECTION = "ADD_SELECTION";
 export const ADD_ALL_SELECTIONS = "ADD_ALL_SELECTIONS";
 export const REMOVE_SELECTION = "REMOVE_SELECTION";
+export const REMOVE_ALL_SELECTIONS = "REMOVE_ALL_SELECTIONS";
 
 export function addSelection(selection) {
   return {
@@ -24,5 +25,11 @@ export function removeSelection(category) {
   return {
     type: REMOVE_SELECTION,
     category
+  };
+}
+
+export function removeAllSelections() {
+  return {
+    type: REMOVE_ALL_SELECTIONS
   };
 }
