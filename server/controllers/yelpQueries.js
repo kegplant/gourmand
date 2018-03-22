@@ -19,14 +19,14 @@ module.exports = {
                 console.log(e);
             });
     },
-    formatQuery: function (query) {
+    formatQuery: function (query) {//result sorted by "best match" at the moment
         //code to format the query
         return {
             term: meal[query.meal - 1], //correct
             price: price[query.price - 1], //correct
             location: query.address, //takes zipcode as well
             radius: query.location * 1600, //correct
-            limit: 50
+            limit: 50 //maximum per query; can use offect:50 to get 51-100 etc.
         };
     },
     categoryBuilder: function (businesses) {
@@ -46,7 +46,7 @@ module.exports = {
             }
             categoryList.push(entry); //could use some optimization
         }
-        categoryList.sort((a, b) => b.number - a.number)
+        categoryList.sort((a, b) => b.number - a.number);
         console.log(categoryList)
         return categoryList;
     }
