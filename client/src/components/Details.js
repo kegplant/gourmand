@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { addDetails } from "../actions/details";
 
 class Details extends Component {
   constructor(props) {
@@ -19,7 +20,25 @@ class Details extends Component {
   }
 
   handleCreatePollClicked = e => {
-    const { name, event, url } = this.state;
+    let { name, event } = this.state;
+    const { socketID, dispatch } = this.props;
+
+    if (name === "") {
+      name = "gourmand-user";
+    }
+    if (event === "") {
+      event = "my-event";
+    }
+
+    const url = `http://localhost:3000/${event}/${socketID}`;
+
+    dispatch(
+      addDetails({
+        name,
+        event,
+        url
+      })
+    );
   };
 
   handleInputChange = event => {
@@ -44,18 +63,18 @@ class Details extends Component {
         <div className="row">
           <div className="col-md-6">
             <div>
-              <h5>Event Details</h5>
+              <h5>Event Details (optional)</h5>
               <div className="info-container">
                 <input
                   type="text"
                   name="name"
-                  placeholder="Your name"
+                  placeholder="Your name (optional)"
                   onChange={this.handleInputChange}
                 />
                 <input
                   type="text"
                   name="event"
-                  placeholder="Event name"
+                  placeholder="Event name (optional)"
                   onChange={this.handleInputChange}
                 />
               </div>
