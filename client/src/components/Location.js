@@ -45,7 +45,7 @@ class Location extends Component {
           address: value
         })
       );
-    }, 500);
+    }, 1000);
   };
 
   render() {
