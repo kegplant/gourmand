@@ -15,19 +15,25 @@ class Result extends Component {
     };
   }
   handleOnClick = (event, category) => {
-    const selected = this.state[category] ? false : true;
-    this.setState(() => ({
-      [category]: selected
-    }));
-    const { dispatch } = this.props;
+    const { dispatch, categoryFlattened, selection } = this.props;
+    const { number, image } = categoryFlattened[category];
+    const selected = selection.hasOwnProperty(category) ? false : true;
+
     if (selected) {
       dispatch(
         addSelection({
-          [category]: selected
+          [category]: {
+            category,
+            number,
+            image,
+            votes: {
+              number: 0,
+              voters: []
+            }
+          }
         })
       );
     }
-
     if (!selected) {
       dispatch(removeSelection(category));
     }
@@ -36,22 +42,26 @@ class Result extends Component {
   selectAll = event => {
     const { checkbox } = this.state;
     let newSetting = checkbox ? false : true;
-    const { dispatch } = this.props;
+    const { dispatch, categories, categoryFlattened } = this.props;
     this.setState(() => ({
       checkbox: newSetting
     }));
-    const { categories } = this.props;
     const reducer = (acc, element) => {
       const { category } = element;
-      acc[category] = newSetting;
+      const { number, image } = categoryFlattened[category];
+      acc[category] = {
+        category,
+        number,
+        image,
+        votes: {
+          number: 0,
+          voters: []
+        }
+      };
       return acc;
     };
 
     const newState = categories.reduce(reducer, {});
-
-    this.setState(() => ({
-      ...newState
-    }));
 
     if (newSetting) {
       dispatch(addAllSelections(newState));
@@ -63,7 +73,7 @@ class Result extends Component {
   };
 
   render() {
-    const { categories } = this.props;
+    const { categories, selection } = this.props;
     return (
       <div>
         <div className="checkbox-container">
@@ -84,7 +94,7 @@ class Result extends Component {
               <div
                 className="category"
                 style={{
-                  outline: this.state[category.category]
+                  outline: selection[category.category]
                     ? "4px solid #FCDDA5"
                     : "none"
                 }}
@@ -103,7 +113,7 @@ class Result extends Component {
   }
 }
 
-function mapToState({ categories }) {
+function mapToState({ categories, selection }) {
   const categoryArray = Object.keys(categories)
     .map(name => {
       const { category, number, image } = categories[name];
@@ -125,7 +135,9 @@ function mapToState({ categories }) {
     });
 
   return {
-    categories: categoryArray
+    categories: categoryArray,
+    categoryFlattened: categories,
+    selection
   };
 }
 

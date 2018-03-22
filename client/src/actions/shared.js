@@ -22,10 +22,16 @@ export function handleCriteriaChange(newCriteria) {
 
 export function handleCreatePoll() {
   return (dispatch, getState) => {
-    const state = getState();
+    const { selection, criteria, socket, details } = getState();
+    const payload = {
+      selection,
+      criteria,
+      socket,
+      details
+    };
     dispatch(showLoading());
-    _createPoll(state).then(data => {
-      console.log(data);
+    _createPoll(payload).then(data => {
+      console.dir(data);
       dispatch(hideLoading());
     });
   };

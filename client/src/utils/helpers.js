@@ -18,7 +18,16 @@ export function reconcileSelections(categories, selections) {
       return categories.hasOwnProperty(key);
     })
     .reduce((acc, element) => {
-      acc[element] = true;
+      const { number, image } = categories[element];
+      acc[element] = {
+        category: element,
+        number,
+        image,
+        votes: {
+          number: 0,
+          voters: []
+        }
+      };
 
       return acc;
     }, {});
