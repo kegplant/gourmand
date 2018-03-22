@@ -48,6 +48,7 @@ module.exports = {
       categoryList.push(entry); //could use some optimization
     }
     categoryList.sort((a, b) => b.number - a.number);
+    console.log(categoryList);
     return categoryList;
   }
 };
