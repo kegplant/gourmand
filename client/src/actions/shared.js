@@ -5,6 +5,7 @@ import { showLoading, hideLoading } from "react-redux-loading";
 import { addAllSelections } from "./selection";
 import { reconcileSelections } from "../utils/helpers";
 import { addDetails } from "./details";
+import { addMongo } from "./mongo";
 
 export function handleCriteriaChange(newCriteria) {
   return (dispatch, getState) => {
@@ -32,6 +33,7 @@ export function handleCreatePoll() {
     };
     dispatch(showLoading());
     _createPoll(payload).then(data => {
+      dispatch(addMongo(data._id));
       dispatch(hideLoading());
     });
   };

@@ -13,16 +13,17 @@ class Details extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { socketID } = nextProps;
-    const url = `/my-event/${socketID}`;
-    this.setState(() => ({
-      url
-    }));
+    if (nextProps.id) {
+      const { history } = this.props;
+      const { event } = this.state;
+      const url = `/${event}/${nextProps.id}`;
+      history.push(url);
+    }
   }
 
   handleCreatePollClicked = e => {
     let { name, event } = this.state;
-    const { socketID, dispatch } = this.props;
+    const { dispatch } = this.props;
 
     if (name === "") {
       name = "gourmand-user";
@@ -31,20 +32,17 @@ class Details extends Component {
       event = "my-event";
     }
 
-    const url = `/${event}/${socketID}`;
-
     dispatch(
       addDetails({
         name,
-        event,
-        url
+        event
       })
     );
 
     dispatch(handleCreatePoll());
 
-    const { history } = this.props;
-    history.push(url);
+    //const { history } = this.props;
+    //history.push(url);
   };
 
   handleInputChange = event => {
@@ -52,15 +50,6 @@ class Details extends Component {
     this.setState(() => ({
       [name]: value
     }));
-
-    if (name === "event") {
-      const { socketID } = this.props;
-      const newVal = value.replace(/\s+/g, "-").toLowerCase();
-      const newURL = `http://localhost:3000/${newVal}/${socketID}`;
-      this.setState(() => ({
-        url: newURL
-      }));
-    }
   };
   render() {
     return (
@@ -104,10 +93,12 @@ class Details extends Component {
   }
 }
 
-function mapStateToProps({ socket }) {
+function mapStateToProps({ socket, mongo }) {
   const { socketID } = socket;
+  const { id } = mongo;
   return {
-    socketID
+    socketID,
+    id
   };
 }
 

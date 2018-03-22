@@ -12,7 +12,7 @@
 var mongoose = require("mongoose");
 
 // STEP 2 (DB/SCHEMA SETUP): Connect to Mongoose:
-mongoose.connect("mongodb://localhost/[YOUR_DB_NAME_HERE]"); // <---- CHANGE DB NAME!
+mongoose.connect("mongodb://localhost/gourmand"); // <---- CHANGE DB NAME!
 
 // [ FOR STEP 3 (DB/SCHEMA SETUP) => CREATE MODEL in './../MODELS/' ]
 // [ FOR STEP 4 (DB/SCHEMA SETUP) => CREATE CONTROLLER FILE in './../CONTROLLERS/' and EXPORT CONTROLLER METHODS TO ROUTES.JS]
