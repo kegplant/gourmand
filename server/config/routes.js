@@ -24,4 +24,8 @@ module.exports = function(app) {
     console.log("in server");
     yelpQueries.categories(request, response);
   });
+
+  app.post("/polls/new", function(request, response) {
+    response.json({ response: request.body });
+  });
 };

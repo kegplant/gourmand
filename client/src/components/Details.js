@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addDetails } from "../actions/details";
+import { handleCreatePoll } from "../actions/shared";
 
 class Details extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class Details extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { socketID } = nextProps;
-    const url = `http://localhost:3000/my-event/${socketID}`;
+    const url = `/my-event/${socketID}`;
     this.setState(() => ({
       url
     }));
@@ -30,7 +31,7 @@ class Details extends Component {
       event = "my-event";
     }
 
-    const url = `http://localhost:3000/${event}/${socketID}`;
+    const url = `/${event}/${socketID}`;
 
     dispatch(
       addDetails({
@@ -39,6 +40,11 @@ class Details extends Component {
         url
       })
     );
+
+    dispatch(handleCreatePoll());
+
+    const { history } = this.props;
+    history.push(url);
   };
 
   handleInputChange = event => {

@@ -7,6 +7,7 @@ import Location from "./Location";
 import { handleCriteriaChange } from "../actions/shared";
 import Result from "./Result";
 import Details from "./Details";
+import None from "./None";
 
 class New extends Component {
   componentDidMount() {
@@ -21,10 +22,10 @@ class New extends Component {
     );
   }
   render() {
+    const { loading, history } = this.props;
     return (
       <div className="container">
         <Meal />
-
         <div className="row">
           <div className="col-md-6">
             <Price />
@@ -33,11 +34,21 @@ class New extends Component {
             <Location />
           </div>
         </div>
-        <Result />
-        <Details />
+        {loading ? <Result /> : <None />}
+        <Details history={history} />
       </div>
     );
   }
 }
 
-export default connect()(New);
+function mapStateToProps({ categories }) {
+  const loading =
+    Object.keys(categories).length === 0 && categories.constructor === Object
+      ? false
+      : true;
+  return {
+    loading
+  };
+}
+
+export default connect(mapStateToProps)(New);
