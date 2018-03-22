@@ -19,7 +19,7 @@ module.exports = {
                 console.log(e);
             });
     },
-    formatQuery: function (query) {//result sorted by "best match" at the moment
+    formatQuery: function (query) { //result sorted by "best match" at the moment
         //code to format the query
         return {
             term: meal[query.meal - 1], //correct
@@ -49,6 +49,5 @@ module.exports = {
         categoryList.sort((a, b) => b.number - a.number);
         console.log(categoryList)
         return categoryList;
-    }
-
+    },
 };

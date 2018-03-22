@@ -6,3 +6,15 @@ export function _getCategories(data) {
     return flattenCategories(data.data);
   });
 }
+
+export function _createPoll(data) {
+  return axios.post("/polls/new", data).then(data => {
+    return data.data;
+  });
+}
+
+export function _getSelection(id) {
+  return axios.get(`/polls/${id}`).then(data => {
+    return data.data;
+  });
+}

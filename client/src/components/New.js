@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Meal from "./Meal";
-import Type from "./Type";
 import Price from "./Price";
 import Location from "./Location";
 import { handleCriteriaChange } from "../actions/shared";
 import Result from "./Result";
+import Details from "./Details";
+import None from "./None";
 
 class New extends Component {
   componentDidMount() {
@@ -20,23 +21,33 @@ class New extends Component {
     );
   }
   render() {
+    const { loading, history } = this.props;
     return (
       <div className="container">
         <Meal />
-        <div className="col-md-1" />
         <div className="row">
-          <div className="col-md-5">
+          <div className="col-md-6">
             <Price />
           </div>
-          <div className="col-md-5">
+          <div className="col-md-6">
             <Location />
           </div>
-          <div className="col-md-1" />
         </div>
-        <Result />
+        {loading ? <Result /> : <None />}
+        <Details history={history} />
       </div>
     );
   }
 }
 
-export default connect()(New);
+function mapStateToProps({ categories }) {
+  const loading =
+    Object.keys(categories).length === 0 && categories.constructor === Object
+      ? false
+      : true;
+  return {
+    loading
+  };
+}
+
+export default connect(mapStateToProps)(New);

@@ -11,3 +11,26 @@ export function flattenCategories(categories) {
   };
   return categories.reduce(reducer, {});
 }
+
+export function reconcileSelections(categories, selections) {
+  const reconciledSelections = Object.keys(selections)
+    .filter(key => {
+      return categories.hasOwnProperty(key);
+    })
+    .reduce((acc, element) => {
+      const { number, image } = categories[element];
+      acc[element] = {
+        category: element,
+        number,
+        image,
+        votes: {
+          number: 0,
+          voters: []
+        }
+      };
+
+      return acc;
+    }, {});
+
+  return reconciledSelections;
+}

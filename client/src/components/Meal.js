@@ -12,7 +12,6 @@ class Meal extends Component {
 
   handleSelection = event => {
     const { value } = event.target;
-    console.log(value);
     this.setState(() => ({
       meal: value
     }));
