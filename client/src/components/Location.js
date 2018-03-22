@@ -14,7 +14,6 @@ class Location extends Component {
   }
 
   handleLocationSelection = event => {
-    const { address } = this.state;
     const { value } = event.target;
     this.setState(() => ({
       location: value

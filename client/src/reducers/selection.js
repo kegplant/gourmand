@@ -3,7 +3,7 @@ import {
   ADD_ALL_SELECTIONS,
   REMOVE_SELECTION,
   REMOVE_ALL_SELECTIONS
-} from "../actions/selected";
+} from "../actions/selection";
 
 export default function selection(state = {}, action) {
   switch (action.type) {
@@ -19,7 +19,7 @@ export default function selection(state = {}, action) {
     case REMOVE_SELECTION:
       const newState = Object.keys(state)
         .filter(category => {
-          return category != action.category;
+          return category !== action.category;
         })
         .reduce((acc, element) => {
           const { number, image } = state[element];

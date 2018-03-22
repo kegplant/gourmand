@@ -2,14 +2,14 @@ import { changeCriteria } from "./criteria.js";
 import { _getCategories, _createPoll } from "../utils/_API";
 import { addCategories } from "./categories";
 import { showLoading, hideLoading } from "react-redux-loading";
-import { addAllSelections } from "./selected";
+import { addAllSelections } from "./selection";
 import { reconcileSelections } from "../utils/helpers";
 
 export function handleCriteriaChange(newCriteria) {
   return (dispatch, getState) => {
     dispatch(showLoading());
     dispatch(changeCriteria(newCriteria));
-    const { criteria, selection, categories } = getState();
+    const { criteria, selection } = getState();
 
     _getCategories(criteria).then(categories => {
       dispatch(addCategories(categories));
@@ -31,7 +31,6 @@ export function handleCreatePoll() {
     };
     dispatch(showLoading());
     _createPoll(payload).then(data => {
-      console.dir(data);
       dispatch(hideLoading());
     });
   };
