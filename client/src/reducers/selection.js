@@ -22,7 +22,16 @@ export default function selection(state = {}, action) {
           return category != action.category;
         })
         .reduce((acc, element) => {
-          acc[element] = true;
+          const { number, image } = state[element];
+          acc[element] = {
+            category: element,
+            number,
+            image,
+            votes: {
+              number: 0,
+              voters: []
+            }
+          };
           return acc;
         }, {});
       return {
