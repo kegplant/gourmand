@@ -1,65 +1,78 @@
 {
-  "Asian Fusion": {
-    "category": "Asian Fusion",
-    "number": 2,
-    "image": "static/images/chinese.png",
-    "votes": {
-      "number": 0,
-      "voters": []
+  "selections": {
+    "Asian Fusion": {
+      "category": "Asian Fusion",
+      "number": 2,
+      "image": "static/images/chinese.png",
+      "votes": {
+        "number": 0,
+        "voters": []
+      }
+    },
+    "French": {
+      "category": "French",
+      "number": 2,
+      "image": "static/images/chinese.png",
+      "votes": {
+        "number": 0,
+        "voters": []
+      }
+    },
+    "Diners": {
+      "category": "Diners",
+      "number": 2,
+      "image": "static/images/chinese.png",
+      "votes": {
+        "number": 0,
+        "voters": []
+      }
+    },
+    "Burgers": {
+      "category": "Burgers",
+      "number": 4,
+      "image": "static/images/chinese.png",
+      "votes": {
+        "number": 0,
+        "voters": []
+      }
+    },
+    "Cafes": {
+      "category": "Cafes",
+      "number": 4,
+      "image": "static/images/chinese.png",
+      "votes": {
+        "number": 0,
+        "voters": []
+      }
+    },
+    "Caribbean": {
+      "category": "Caribbean",
+      "number": 1,
+      "image": "static/images/chinese.png",
+      "votes": {
+        "number": 0,
+        "voters": []
+      }
+    },
+    "American (Traditional)": {
+      "category": "American (Traditional)",
+      "number": 3,
+      "image": "static/images/chinese.png",
+      "votes": {
+        "number": 0,
+        "voters": []
+      }
     }
   },
-  "French": {
-    "category": "French",
-    "number": 2,
-    "image": "static/images/chinese.png",
-    "votes": {
-      "number": 0,
-      "voters": []
-    }
+  "criteria": {
+    "address": "566 Arguello Way, Stanford, CA",
+    "location": "3",
+    "meal": 2,
+    "price": "5"
   },
-  "Diners": {
-    "category": "Diners",
-    "number": 2,
-    "image": "static/images/chinese.png",
-    "votes": {
-      "number": 0,
-      "voters": []
-    }
-  },
-  "Burgers": {
-    "category": "Burgers",
-    "number": 4,
-    "image": "static/images/chinese.png",
-    "votes": {
-      "number": 0,
-      "voters": []
-    }
-  },
-  "Cafes": {
-    "category": "Cafes",
-    "number": 4,
-    "image": "static/images/chinese.png",
-    "votes": {
-      "number": 0,
-      "voters": []
-    }
-  },
-  "Caribbean": {
-    "category": "Caribbean",
-    "number": 1,
-    "image": "static/images/chinese.png",
-    "votes": {
-      "number": 0,
-      "voters": []
-    }
-  },
-  "American (Traditional)": {
-    "category": "American (Traditional)",
-    "number": 3,
-    "image": "static/images/chinese.png",
-    "votes": {
-      "number": 0,
-      "voters": []
-    }
+  "details": {
+    "name": "Song",
+    "event": "Birthday",
+    "url": "/Event/yjtc3KBiAgTp-WblAAAC"
   }
 }

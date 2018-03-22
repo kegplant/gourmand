@@ -1,9 +1,11 @@
 import { changeCriteria } from "./criteria.js";
-import { _getCategories, _createPoll } from "../utils/_API";
+import { _getCategories, _createPoll, _getSelection } from "../utils/_API";
 import { addCategories } from "./categories";
 import { showLoading, hideLoading } from "react-redux-loading";
 import { addAllSelections } from "./selection";
 import { reconcileSelections } from "../utils/helpers";
+import { addDetails } from "./details";
+import { addMongo } from "./mongo";
 
 export function handleCriteriaChange(newCriteria) {
   return (dispatch, getState) => {
@@ -31,6 +33,19 @@ export function handleCreatePoll() {
     };
     dispatch(showLoading());
     _createPoll(payload).then(data => {
+      dispatch(addMongo(data._id));
+      dispatch(hideLoading());
+    });
+  };
+}
+
+export function handleGetPollData(id) {
+  return dispatch => {
+    dispatch(showLoading());
+    _getSelection(id).then(result => {
+      dispatch(addAllSelections(result.selections));
+      dispatch(changeCriteria(result.criteria));
+      dispatch(addDetails(result.details));
       dispatch(hideLoading());
     });
   };
