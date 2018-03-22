@@ -9,6 +9,7 @@
 // within the 'controllers' directory. )
 var controller = require("../controllers/controller_name_plural.js");
 var yelpQueries = require("../controllers/yelpQueries.js");
+const dummy_data = require("./dummy_data");
 // Export all routes to server.js:
 module.exports = function(app) {
   // Root route - renders index.ejs view (for socket.io example):
@@ -27,5 +28,10 @@ module.exports = function(app) {
 
   app.post("/polls/new", function(request, response) {
     response.json({ response: request.body });
+  });
+
+  app.get("/polls/:id", function(request, response) {
+    console.log(request.params.id);
+    response.json(dummy_data);
   });
 };

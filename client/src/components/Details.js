@@ -63,7 +63,6 @@ class Details extends Component {
     }
   };
   render() {
-    const { url } = this.state;
     return (
       <div className="details">
         <div className="row">

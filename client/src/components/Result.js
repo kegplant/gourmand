@@ -5,7 +5,7 @@ import {
   removeSelection,
   addAllSelections,
   removeAllSelections
-} from "../actions/selected";
+} from "../actions/selection";
 
 class Result extends Component {
   constructor(props) {
@@ -128,8 +128,7 @@ function mapToState({ categories, selection }) {
       let categoryB = b.category;
       if (categoryA < categoryB) {
         return -1;
-      }
-      if (categoryA > categoryB) {
+      } else {
         return 1;
       }
     });

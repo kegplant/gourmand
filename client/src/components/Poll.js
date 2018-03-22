@@ -1,6 +1,13 @@
 import React, { Component } from "react";
+import { handleGetSelection } from "../actions/selection";
+import { connect } from "react-redux";
 
 class Poll extends Component {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    const { id } = this.props.match.params;
+    dispatch(handleGetSelection(id));
+  }
   render() {
     return (
       <div className="container">
@@ -10,4 +17,4 @@ class Poll extends Component {
   }
 }
 
-export default Poll;
+export default connect()(Poll);

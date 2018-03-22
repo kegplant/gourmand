@@ -1,67 +1,65 @@
-[
-  {
-    "category": "Thai",
-    "number": 12,
-    "image": "static/images/thai.png"
+{
+  "Asian Fusion": {
+    "category": "Asian Fusion",
+    "number": 2,
+    "image": "static/images/chinese.png",
+    "votes": {
+      "number": 0,
+      "voters": []
+    }
   },
-  {
-    "category": "Burgers",
-    "number": 12,
-    "image": "static/images/burgers.png"
-  },
-  {
-    "category": "BBQ",
-    "number": 12,
-    "image": "static/images/bbq.png"
-  },
-  {
-    "category": "Mexican",
-    "number": 12,
-    "image": "static/images/mexican.png"
-  },
-  {
-    "category": "Pho",
-    "number": 12,
-    "image": "static/images/pho.png"
-  },
-  {
-    "category": "Sandwich",
-    "number": 12,
-    "image": "static/images/sandwhich.png"
-  },
-  {
+  "French": {
     "category": "French",
-    "number": 12,
-    "image": "static/images/french.png"
+    "number": 2,
+    "image": "static/images/chinese.png",
+    "votes": {
+      "number": 0,
+      "voters": []
+    }
   },
-  {
-    "category": "Mongolian",
-    "number": 12,
-    "image": "static/images/mongolian.png"
+  "Diners": {
+    "category": "Diners",
+    "number": 2,
+    "image": "static/images/chinese.png",
+    "votes": {
+      "number": 0,
+      "voters": []
+    }
   },
-  {
-    "category": "Sushi",
-    "number": 12,
-    "image": "static/images/sushi.png"
+  "Burgers": {
+    "category": "Burgers",
+    "number": 4,
+    "image": "static/images/chinese.png",
+    "votes": {
+      "number": 0,
+      "voters": []
+    }
   },
-  {
-    "category": "Diner",
-    "number": 12,
-    "image": "static/images/diner.png"
+  "Cafes": {
+    "category": "Cafes",
+    "number": 4,
+    "image": "static/images/chinese.png",
+    "votes": {
+      "number": 0,
+      "voters": []
+    }
   },
-  {
-    "category": "Italian",
-    "number": 12,
-    "image": "static/images/italian.png"
+  "Caribbean": {
+    "category": "Caribbean",
+    "number": 1,
+    "image": "static/images/chinese.png",
+    "votes": {
+      "number": 0,
+      "voters": []
+    }
   },
-  {
-    "category": "Chinese",
-    "number": 12,
-    "image": "static/images/chinese.png"
-  },
-  {
-    "category": "Pizza",
-    "number": 12,
-    "image": "static/images/pizza.png"
+  "American (Traditional)": {
+    "category": "American (Traditional)",
+    "number": 3,
+    "image": "static/images/chinese.png",
+    "votes": {
+      "number": 0,
+      "voters": []
+    }
   }
-]
+}

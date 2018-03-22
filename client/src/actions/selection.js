@@ -1,3 +1,4 @@
+import { _getSelection } from "../utils/_API";
 export const ADD_SELECTION = "ADD_SELECTION";
 export const ADD_ALL_SELECTIONS = "ADD_ALL_SELECTIONS";
 export const REMOVE_SELECTION = "REMOVE_SELECTION";
@@ -31,5 +32,13 @@ export function removeSelection(category) {
 export function removeAllSelections() {
   return {
     type: REMOVE_ALL_SELECTIONS
+  };
+}
+
+export function handleGetSelection(id) {
+  return dispatch => {
+    _getSelection(id).then(result => {
+      dispatch(addAllSelections(result));
+    });
   };
 }

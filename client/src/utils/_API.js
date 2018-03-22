@@ -12,3 +12,9 @@ export function _createPoll(data) {
     return data.data;
   });
 }
+
+export function _getSelection(id) {
+  return axios.get(`/polls/${id}`).then(data => {
+    return data.data;
+  });
+}
