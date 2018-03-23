@@ -53,8 +53,6 @@ export function handleAddVote(data) {
     votes.voters.push(data.id);
     votes.number = votes.voters.length;
     dispatch(addVote(votes, data));
-    _addVote(data).then(result => {
-      console.log(data);
-    });
+    _addVote(data).then(result => {});
   };
 }

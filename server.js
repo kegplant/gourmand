@@ -87,6 +87,12 @@ io.sockets.on("connection", function(socket) {
   console.log("Client/socket id is: ", socket.id);
   // all the server socket code goes in here ...
   socket.emit("server_response", { response: socket.id });
+
+  socket.on("user voted", pollID => {
+    console.log("user voted");
+    socket.join(pollID);
+    io.to(pollID).emit("update_votes", { pollID: pollID });
+  });
 });
 
 ////////////////////////////////
