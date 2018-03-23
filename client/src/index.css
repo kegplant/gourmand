@@ -13,6 +13,15 @@ body {
   font-size: 40px;
 }
 
+.cast-vote {
+  margin: 0 auto;
+  border-radius: 2rem;
+}
+
+.vote-container {
+  text-align: center;
+}
+
 .search-criteria {
   text-align: center;
   margin: 2rem;

@@ -7,8 +7,8 @@ class Details extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "gourmand-user",
-      event: "my-event"
+      name: "",
+      event: ""
     };
   }
 
@@ -21,15 +21,23 @@ class Details extends Component {
     }
   }
 
+  isDisabled = () => {
+    return !this.props.selected;
+  };
+
   handleCreatePollClicked = e => {
     let { name, event } = this.state;
     const { dispatch } = this.props;
 
     if (name === "") {
-      name = "gourmand-user";
+      this.setState(() => ({
+        name: "gourmand-user"
+      }));
     }
     if (event === "") {
-      event = "my-event";
+      this.setState(() => ({
+        event: "my_event"
+      }));
     }
 
     dispatch(
@@ -40,9 +48,6 @@ class Details extends Component {
     );
 
     dispatch(handleCreatePoll());
-
-    //const { history } = this.props;
-    //history.push(url);
   };
 
   handleInputChange = event => {
@@ -81,6 +86,7 @@ class Details extends Component {
                 <button
                   className="poll-buttons"
                   onClick={this.handleCreatePollClicked}
+                  disabled={this.isDisabled()}
                 >
                   Create Poll
                 </button>
@@ -93,12 +99,18 @@ class Details extends Component {
   }
 }
 
-function mapStateToProps({ socket, mongo }) {
+function mapStateToProps({ socket, mongo, selection }) {
   const { socketID } = socket;
+  const selected =
+    Object.keys(selection).length === 0 && selection.constructor === Object
+      ? false
+      : true;
+
   const { id } = mongo;
   return {
     socketID,
-    id
+    id,
+    selected
   };
 }
 

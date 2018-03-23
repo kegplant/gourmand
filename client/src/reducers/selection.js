@@ -2,7 +2,8 @@ import {
   ADD_SELECTION,
   ADD_ALL_SELECTIONS,
   REMOVE_SELECTION,
-  REMOVE_ALL_SELECTIONS
+  REMOVE_ALL_SELECTIONS,
+  ADD_VOTE
 } from "../actions/selection";
 
 export default function selection(state = {}, action) {
@@ -39,6 +40,17 @@ export default function selection(state = {}, action) {
       };
     case REMOVE_ALL_SELECTIONS:
       return {};
+    case ADD_VOTE:
+      const { selected } = action.data;
+      return {
+        ...state,
+        [selected]: {
+          ...state[selected],
+          votes: {
+            ...action.votes
+          }
+        }
+      };
     default:
       return state;
   }

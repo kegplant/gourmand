@@ -45,3 +45,18 @@ export function generateUID() {
       .substring(2, 15)
   );
 }
+
+export function flattenSelections(selectionList) {
+  const selection = selectionList.reduce((acc, element) => {
+    const { category, number, image, votes } = element;
+    acc[category] = {
+      category,
+      number,
+      image,
+      votes
+    };
+    return acc;
+  }, {});
+
+  return selection;
+}

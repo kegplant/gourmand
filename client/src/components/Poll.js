@@ -9,7 +9,7 @@ class Poll extends Component {
     super(props);
     this.state = {
       selected: "",
-      previous: "",
+      voted: false,
       copySuccess: false
     };
 
@@ -20,26 +20,41 @@ class Poll extends Component {
     }
   }
   componentDidMount() {
-    console.log(this.props);
     const { dispatch } = this.props;
     const { id } = this.props.match.params;
     dispatch(handleGetPollData(id));
   }
 
   handleOnClick = (event, category) => {
-    const { previous } = this.state;
-    this.setState(() => ({
-      selected: category,
-      previous
-    }));
+    const { voted } = this.state;
+
+    if (!voted) {
+      this.setState(() => ({
+        selected: category
+      }));
+    }
+  };
+
+  isDisabled = () => {
+    const { selected, voted } = this.state;
+    return selected === "" || voted;
+  };
+
+  castVote = event => {
+    const { selected } = this.state;
     const { dispatch } = this.props;
     const pollID = this.props.match.params.id;
     const id = localStorage.getItem(pollID);
+
+    this.setState(() => ({
+      voted: true
+    }));
+
     dispatch(
       handleAddVote({
-        selected: category,
-        previous,
-        id
+        selected,
+        id,
+        pollID
       })
     );
   };
@@ -81,7 +96,7 @@ class Poll extends Component {
       <div className="container">
         <h2 id="title">Gourmand</h2>
         <h5>You've been invited to vote</h5>
-        <div>
+        <div className="vote-container">
           <div className="category-container">
             {selection.map(element => {
               return (
@@ -106,6 +121,13 @@ class Poll extends Component {
               );
             })}
           </div>
+          <button
+            className="cast-vote"
+            onClick={this.castVote}
+            disabled={this.isDisabled()}
+          >
+            Cast Vote
+          </button>
         </div>
         <h6 className="search-criteria">{searchCriteria}</h6>
         <h5>Shareable Poll Link</h5>
