@@ -3,7 +3,7 @@ import { _getCategories, _createPoll, _getSelection } from "../utils/_API";
 import { addCategories } from "./categories";
 import { showLoading, hideLoading } from "react-redux-loading";
 import { addAllSelections } from "./selection";
-import { reconcileSelections } from "../utils/helpers";
+import { reconcileSelections, flattenSelections } from "../utils/helpers";
 import { addDetails } from "./details";
 import { addMongo } from "./mongo";
 
@@ -43,7 +43,9 @@ export function handleGetPollData(id) {
   return dispatch => {
     dispatch(showLoading());
     _getSelection(id).then(result => {
-      dispatch(addAllSelections(result.selections));
+      console.log("*****");
+      const selections = flattenSelections(result.selections);
+      dispatch(addAllSelections(selections));
       dispatch(changeCriteria(result.criteria));
       dispatch(addDetails(result.details));
       dispatch(hideLoading());

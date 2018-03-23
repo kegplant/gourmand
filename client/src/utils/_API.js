@@ -18,3 +18,9 @@ export function _getSelection(id) {
     return data.data;
   });
 }
+
+export function _addVote(data) {
+  return axios.post("/votes/", data).then(result => {
+    console.log(result.data);
+  });
+}
