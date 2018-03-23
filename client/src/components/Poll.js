@@ -3,6 +3,8 @@ import { handleGetPollData } from "../actions/shared";
 import { connect } from "react-redux";
 import { generateUID } from "../utils/helpers";
 import { handleAddVote } from "../actions/selection";
+import { addSocketID } from "../actions/socket";
+import socketIOClient from "socket.io-client";
 
 class Poll extends Component {
   constructor(props) {
@@ -10,20 +12,39 @@ class Poll extends Component {
     this.state = {
       selected: "",
       voted: false,
-      copySuccess: false
+      copySuccess: false,
+      socket: socketIOClient("http://localhost:8000"),
+      pollID: this.props.match.params.id
     };
 
     //get a unique userid for user
-    const { id } = this.props.match.params;
-    if (!localStorage.getItem(id)) {
-      localStorage.setItem(id, generateUID());
+    const { pollID } = this.state;
+    if (!localStorage.getItem(pollID)) {
+      localStorage.setItem(pollID, generateUID());
     }
   }
   componentDidMount() {
     const { dispatch } = this.props;
-    const { id } = this.props.match.params;
-    dispatch(handleGetPollData(id));
+    const { pollID, socket } = this.state;
+    dispatch(handleGetPollData(pollID));
+
+    socket.on("update_votes", function(data) {
+      const { pollID } = data;
+      console.log(pollID);
+      dispatch(handleGetPollData(pollID));
+    });
+
+    socket.on("joined_room", function(data) {
+      console.log(data);
+    });
+
+    socket.emit("joined poll", pollID);
   }
+
+  socketVote = () => {
+    const { pollID, socket } = this.state;
+    socket.emit("user voted", pollID);
+  };
 
   handleOnClick = (event, category) => {
     const { voted } = this.state;
@@ -41,9 +62,8 @@ class Poll extends Component {
   };
 
   castVote = event => {
-    const { selected } = this.state;
+    const { selected, pollID } = this.state;
     const { dispatch } = this.props;
-    const pollID = this.props.match.params.id;
     const id = localStorage.getItem(pollID);
 
     this.setState(() => ({
@@ -51,12 +71,17 @@ class Poll extends Component {
     }));
 
     dispatch(
-      handleAddVote({
-        selected,
-        id,
-        pollID
-      })
+      handleAddVote(
+        {
+          selected,
+          id,
+          pollID
+        },
+        this.socketVote
+      )
     );
+
+    //this.socketVote();
   };
 
   handleCopy = event => {

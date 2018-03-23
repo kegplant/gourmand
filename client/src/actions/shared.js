@@ -43,7 +43,6 @@ export function handleGetPollData(id) {
   return dispatch => {
     dispatch(showLoading());
     _getSelection(id).then(result => {
-      console.log("*****");
       const selections = flattenSelections(result.selections);
       dispatch(addAllSelections(selections));
       dispatch(changeCriteria(result.criteria));
