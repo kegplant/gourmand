@@ -60,7 +60,7 @@ module.exports = {
         if (err) {
           errHandler(err, res);
         } else {
-          console.log("successly retrieved poll_id: ", poll_id);
+          console.log("successly retrieved poll_id: ", poll._id);
           res.json(poll);
         }
       }
