@@ -39,11 +39,11 @@ const fakePoll = {
 };
 
 module.exports = {
-  create: function (req, res) {
+  create: function(req, res) {
     //QUESTION FOR YOU SONG WHAT IS LINE 80 DOING?
     req.body.selections = Object.values(req.body.selection);
 
-    Poll.create(req.body, function (err, poll) {
+    Poll.create(req.body, function(err, poll) {
       if (err) {
         console.log(err);
         res.json({
@@ -55,11 +55,12 @@ module.exports = {
       }
     });
   },
-  get: function (req, res) {
-    Poll.findOne({
+  get: function(req, res) {
+    Poll.findOne(
+      {
         _id: req.params.id
       },
-      function (err, poll) {
+      function(err, poll) {
         if (err) {
           console.log(err);
           res.json({
@@ -72,8 +73,9 @@ module.exports = {
       }
     );
   },
-  update: function (req, res) {
-    Poll.findOne({
+  update: function(req, res) {
+    Poll.findOne(
+      {
         _id: req.body.pollID
       },
       (err, poll) => {
@@ -84,16 +86,21 @@ module.exports = {
           });
         } else {
           //do something: update vote number; could try early exit
-          poll.selections.forEach(selection=>{
-            if(selection.category==req.body.selected) selection.votes.number+=1;
-            console.log("found and saved")
+          poll.selections.forEach(selection => {
+            if (selection.category == req.body.selected)
+              selection.votes.number += 1;
+            console.log("found and saved");
           });
-          poll.save((err) => {
-              console.log("successly saved vote to ",
-              req.body.selected, "poll_id: ", poll._id);
+          poll.save(err => {
+            console.log(
+              "successly saved vote to ",
+              req.body.selected,
+              "poll_id: ",
+              poll._id
+            );
             res.json(poll);
           });
-        };
+        }
       }
     );
   }

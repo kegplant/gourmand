@@ -38,7 +38,7 @@ class Poll extends Component {
       console.log(data);
     });
 
-    socket.emit("joined poll");
+    socket.emit("joined poll", pollID);
   }
 
   socketVote = () => {
@@ -71,14 +71,17 @@ class Poll extends Component {
     }));
 
     dispatch(
-      handleAddVote({
-        selected,
-        id,
-        pollID
-      })
+      handleAddVote(
+        {
+          selected,
+          id,
+          pollID
+        },
+        this.socketVote
+      )
     );
 
-    this.socketVote();
+    //this.socketVote();
   };
 
   handleCopy = event => {

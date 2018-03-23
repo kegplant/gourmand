@@ -88,6 +88,12 @@ io.sockets.on("connection", function(socket) {
   // all the server socket code goes in here ...
   socket.emit("server_response", { response: socket.id });
 
+  socket.on("joined poll", pollID => {
+    console.log("joined poll");
+    socket.join(pollID);
+    io.to(pollID).emit("joined poll", { pollID: pollID });
+  });
+
   socket.on("user voted", pollID => {
     console.log("user voted");
     socket.join(pollID);

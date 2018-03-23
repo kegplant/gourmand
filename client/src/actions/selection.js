@@ -46,13 +46,15 @@ export function removeAllSelections() {
   };
 }
 
-export function handleAddVote(data) {
+export function handleAddVote(data, cb) {
   return (dispatch, getState) => {
     const state = getState();
     const { votes } = state.selection[data.selected];
     votes.voters.push(data.id);
     votes.number = votes.voters.length;
     dispatch(addVote(votes, data));
-    _addVote(data).then(result => {});
+    _addVote(data).then(result => {
+      cb();
+    });
   };
 }
