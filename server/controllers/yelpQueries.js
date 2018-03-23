@@ -5,6 +5,10 @@ const client = yelp.client(apiKey);
 
 const meal = ["breakfast", "lunch", "dinner"];
 const price = ["1, 2, 3, 4", "1", "2", "3", "4"];
+let fakeQuery={ address: '566 Arguello Way',
+location: '3',
+meal: 2,
+price: '1' } 
 
 module.exports = {
   categories: function(req, res) {
@@ -19,11 +23,11 @@ module.exports = {
       });
   },
   getRecommendations: function(req, res) {
-    const query = formatQuery(req.body);
+    const query = formatQuery(fakeQuery);
     client
       .search(query)
       .then(response => {
-        res.json(categoryBuilder(response.jsonBody.businesses));
+        res.json(response.jsonBody.businesses);
       })
       .catch(e => {
         console.log(e);

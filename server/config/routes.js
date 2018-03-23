@@ -41,11 +41,12 @@ module.exports = function(app) {
 
   app.post("/votes/", function(request, response) {
     console.log(request.body);
-    response.json(dummy_data);
+    polls.update(request, response);
   });
 
-  app.post("/recommendations/", function(request, response) {
-    console.log(request.body);
-    response.json({ reccomendations: "reccomendations" });
-  });
+  app.post("/yelp/recommendations/", function(request, response) {
+    console.log(request.body);//contains _id of the poll
+    yelpQueries.getRecommendations(request,response);
+    });
 };
+ 
