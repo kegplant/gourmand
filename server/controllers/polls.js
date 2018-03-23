@@ -42,15 +42,11 @@ module.exports = {
   create: function (req, res) {
     //QUESTION FOR YOU SONG WHAT IS LINE 80 DOING?
     req.body.selections = Object.values(req.body.selection);
-
-    Poll.create(req.body, function (err, poll) {
+    Poll.create(req.body, (err, poll) => {
       if (err) {
-        console.log(err);
-        res.json({
-          "status: ": "error"
-        });
+        errHandler(err, res);
       } else {
-        console.log("successly created poll: ", poll);
+        console.log("successly created poll_id: ", poll._id);
         res.json(poll);
       }
     });
@@ -59,14 +55,11 @@ module.exports = {
     Poll.findOne({
         _id: req.params.id
       },
-      function (err, poll) {
+      (err, poll) => {
         if (err) {
-          console.log(err);
-          res.json({
-            "status: ": "error"
-          });
+          errHandler(err, res);
         } else {
-          console.log("successly retrieved poll: ", poll);
+          console.log("successly retrieved poll_id: ", poll_id);
           res.json(poll);
         }
       }
@@ -77,24 +70,27 @@ module.exports = {
         _id: req.body.pollID
       },
       (err, poll) => {
-        if (err) {
-          console.log(err);
-          res.json({
-            "status: ": "error"
-          });
-        } else {
-          //do something: update vote number; could try early exit
-          poll.selections.forEach(selection=>{
-            if(selection.category==req.body.selected) selection.votes.number+=1;
-            console.log("found and saved")
-          });
-          poll.save((err) => {
-              console.log("successly saved vote to ",
-              req.body.selected, "poll_id: ", poll._id);
-            res.json(poll);
-          });
-        };
+        if (err) errHandler(err, res);
+        updateVote(poll, req.body.selected);
+        poll.save((err) => {
+          if (err) errHandler(err, res);
+          console.log("successly saved vote to ", req.body.selected, "poll_id: ", poll._id);
+          res.json(poll);
+        });
       }
     );
   }
 };
+
+function errHandler(err, res) {
+  console.log(err);
+  res.json({
+    "status: ": err
+  });
+}
+
+function updateVote(poll, selected) { //find the selected category in poll and add its vote by 1
+  poll.selections.forEach(selection => { //could try early exit
+    if (selection.category == selected) selection.votes.number += 1;
+  });
+}

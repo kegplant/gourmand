@@ -2,16 +2,20 @@ const yelp = require("yelp-fusion");
 const config = require("../config/config.json");
 const apiKey = config.yelp.Key;
 const client = yelp.client(apiKey);
+const mongoose = require("mongoose");
 
 const meal = ["breakfast", "lunch", "dinner"];
 const price = ["1, 2, 3, 4", "1", "2", "3", "4"];
-let fakeQuery={ address: '566 Arguello Way',
-location: '3',
-meal: 2,
-price: '1' } 
+let fakeQuery = {
+  address: '566 Arguello Way',
+  location: '3',
+  meal: 2,
+  price: '1'
+}
+const Poll = mongoose.model("Poll");
 
 module.exports = {
-  categories: function(req, res) {
+  categories: function (req, res) {
     const query = formatQuery(req.body);
     client
       .search(query)
@@ -22,19 +26,20 @@ module.exports = {
         console.log(e);
       });
   },
-  getRecommendations: function(req, res) {
+  getRecommendations: function (req, res) {
     const query = formatQuery(fakeQuery);
     client
       .search(query)
       .then(response => {
-        res.json(response.jsonBody.businesses);
+        res.json(response.jsonBody.businesses.slice(0, 3));
       })
       .catch(e => {
         console.log(e);
       });
   }
 };
-formatQuery = function(query) {
+
+formatQuery = function (query) {
   //result sorted by "best match" at the moment
   //code to format the query
   return {
@@ -45,13 +50,14 @@ formatQuery = function(query) {
     limit: 50 //maximum per query; can use offect:50 to get 51-100 etc.
   };
 };
-categoryBuilder = function(businesses) {
+
+categoryBuilder = function (businesses) {
   let categories = {};
   businesses.forEach(business => {
     business.categories.forEach(category => {
-      categories[category.title] = categories[category.title]
-        ? categories[category.title] + 1
-        : 1;
+      categories[category.title] = categories[category.title] ?
+        categories[category.title] + 1 :
+        1;
     });
   });
   // categories=Object.entries(categories);
