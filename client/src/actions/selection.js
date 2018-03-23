@@ -46,7 +46,7 @@ export function removeAllSelections() {
   };
 }
 
-export function handleAddVote(data) {
+export function handleAddVote(data, cb) {
   return (dispatch, getState) => {
     const state = getState();
     const { votes } = state.selection[data.selected];
@@ -54,7 +54,7 @@ export function handleAddVote(data) {
     votes.number = votes.voters.length;
     dispatch(addVote(votes, data));
     _addVote(data).then(result => {
-      console.log(data);
+      cb();
     });
   };
 }
