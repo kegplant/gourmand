@@ -38,4 +38,14 @@ module.exports = function(app) {
     // response.json(dummy_data);
     polls.get(request, response);
   });
+
+  app.post("/votes/", function(request, response) {
+    console.log(request.body);
+    response.json(dummy_data);
+  });
+
+  app.post("/recommendations/", function(request, response) {
+    console.log(request.body);
+    response.json({ reccomendations: "reccomendations" });
+  });
 };
