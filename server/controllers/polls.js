@@ -73,10 +73,19 @@ module.exports = {
       },
       (err, poll) => {
         if (err) errHandler(err, res);
-        updateVote(poll, req.body.selected);
-        poll.save((err) => {
+        if (req.body.add) {
+          addVote(poll, req.body);
+        } else {
+          removeVote(poll, req.body);
+        }
+        poll.save(err => {
           if (err) errHandler(err, res);
-          console.log("successly saved vote to ", req.body.selected, "poll_id: ", poll._id);
+          console.log(
+            "successly saved vote to ",
+            req.body.selected,
+            "poll_id: ",
+            poll._id
+          );
           res.json(poll);
         });
       }
@@ -91,8 +100,27 @@ function errHandler(err, res) {
   });
 }
 
-function updateVote(poll, selected) { //find the selected category in poll and add its vote by 1
-  poll.selections.forEach(selection => { //could try early exit
-    if (selection.category == selected) selection.votes.number += 1;
+function addVote(poll, data) {
+  //find the selected category in poll and add its vote by
+  poll.selections.forEach(selection => {
+    //some kind of early return
+    if (selection.category === data.selected) {
+      selection.votes.number += 1;
+      selection.votes.voters.push(data.id);
+    }
+  });
+}
+
+function removeVote(poll, data) {
+  //find the selected category in poll and add its vote by
+  poll.selections.forEach(selection => {
+    //some kind of early return
+    if (selection.category === data.selected) {
+      selection.votes.number -= 1;
+      const newVotes = selection.votes.voters.filter(voterID => {
+        return voterID != data.id;
+      });
+      selection.votes.voters = newVotes;
+    }
   });
 }

@@ -10,7 +10,6 @@ class Poll extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: "",
       voted: false,
       copySuccess: false,
       socket: socketIOClient("http://localhost:8000"),
@@ -46,25 +45,12 @@ class Poll extends Component {
     socket.emit("user voted", pollID);
   };
 
-  handleOnClick = (event, category) => {
+  handleOnClick = (event, category, voters) => {
     const { voted } = this.state;
-
-    if (!voted) {
-      this.setState(() => ({
-        selected: category
-      }));
-    }
-  };
-
-  isDisabled = () => {
-    const { selected, voted } = this.state;
-    return selected === "" || voted;
-  };
-
-  castVote = event => {
-    const { selected, pollID } = this.state;
+    const { pollID } = this.state;
     const { dispatch } = this.props;
     const id = localStorage.getItem(pollID);
+    const add = !voters.includes(id);
 
     this.setState(() => ({
       voted: true
@@ -73,15 +59,19 @@ class Poll extends Component {
     dispatch(
       handleAddVote(
         {
-          selected,
+          selected: category,
           id,
-          pollID
+          pollID,
+          add
         },
         this.socketVote
       )
     );
+  };
 
-    //this.socketVote();
+  isDisabled = () => {
+    const { selected, voted } = this.state;
+    return selected === "" || voted;
   };
 
   handleCopy = event => {
@@ -95,9 +85,10 @@ class Poll extends Component {
 
   render() {
     const { selection } = this.props;
-    const { selected, copySuccess } = this.state;
+    const { selected, copySuccess, pollID } = this.state;
     const { address, location, price, meal } = this.props.criteria;
     const { pathname } = this.props.location;
+    const id = localStorage.getItem(pollID);
     const link = `http://localhost:3000${pathname}`;
     const priceList = {
       1: "All",
@@ -130,12 +121,17 @@ class Poll extends Component {
                   key={element.category}
                   data-id={element.category}
                   style={{
-                    outline:
-                      selected === element.category
-                        ? "4px solid #FCDDA5"
-                        : "none"
+                    outline: element.votes.voters.includes(id)
+                      ? "4px solid #FCDDA5"
+                      : "none"
                   }}
-                  onClick={e => this.handleOnClick(e, element.category)}
+                  onClick={e =>
+                    this.handleOnClick(
+                      e,
+                      element.category,
+                      element.votes.voters
+                    )
+                  }
                 >
                   <p className="category-number vote-number">
                     {element.votes.number}
@@ -146,13 +142,6 @@ class Poll extends Component {
               );
             })}
           </div>
-          <button
-            className="cast-vote"
-            onClick={this.castVote}
-            disabled={this.isDisabled()}
-          >
-            Cast Vote
-          </button>
         </div>
         <h6 className="search-criteria">{searchCriteria}</h6>
         <h5>Shareable Poll Link</h5>
@@ -190,6 +179,10 @@ function mapPropsToState({ selection, criteria }) {
       votes
     };
   });
+
+  console.log("******");
+  console.log(newSelection);
+  console.log("******");
 
   return {
     selection: newSelection,
