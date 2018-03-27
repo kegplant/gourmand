@@ -7,6 +7,7 @@ import socket from "./socket";
 import selection from "./selection";
 import details from "./details";
 import mongo from "./mongo";
+import recommendations from "./recommendations";
 
 export default combineReducers({
   criteria,
@@ -15,5 +16,6 @@ export default combineReducers({
   selection,
   details,
   mongo,
+  recommendations,
   loadingBar: loadingBarReducer
 });
