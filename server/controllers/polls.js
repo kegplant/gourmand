@@ -95,7 +95,7 @@ module.exports = {
     }, (err, poll) => {
       if (err) errHandler(err, res);
       poll.set({
-        result: JSON.stringify(fakePoll)
+        result: JSON.stringify(req.body)
       }); //req.body;//change to business.id later
       poll.save((err, newPoll) => {
         if (err) errHandler(err, res);
