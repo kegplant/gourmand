@@ -95,7 +95,7 @@ class Result extends Component {
                 className="category"
                 style={{
                   outline: selection[category.category]
-                    ? "4px solid #FCDDA5"
+                    ? "4px solid #ff4f00"
                     : "none"
                 }}
                 key={category.category}

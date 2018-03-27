@@ -27,7 +27,7 @@ class Meal extends Component {
     const { meal } = this.state;
     return (
       <div>
-        <h2 id="title">Gourmand</h2>
+        <h2 id="title">TasteBuds</h2>
         <div className="row">
           <div className="col-md-2" />
           <ul className="col-md-8 meal-options">
