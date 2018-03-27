@@ -44,7 +44,7 @@ module.exports = function (app) {
         polls.update(request, response);
     });
 
-    app.post("/yelp/recommendations/", function (request, response) {
+    app.post("/recommendations/", function (request, response) {
         console.log(request.body); //contains _id of the poll
         yelpQueries.getRecommendations(request, response);
     });

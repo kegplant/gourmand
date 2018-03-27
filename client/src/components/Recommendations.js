@@ -32,13 +32,22 @@ class Recommendations extends Component {
             <div className="recommendation" key={rec.id}>
               <div className="row rec-title">
                 <p className="rec-name">{rec.name} </p>
-                {starsArray[index].map((element, idx) => {
-                  return (
-                    <div key={idx}>
-                      {element === "Star" ? <FaStar /> : <FaStarHalfEmpty />}
-                    </div>
-                  );
-                })}
+                <div className="row stars-container">
+                  {starsArray[index].map((element, idx) => {
+                    return (
+                      <div key={idx}>
+                        {element === "Star" ? (
+                          <FaStar size={24} style={{ color: "tomato" }} />
+                        ) : (
+                          <FaStarHalfEmpty
+                            size={24}
+                            style={{ color: "tomato" }}
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           );
