@@ -20,23 +20,21 @@ module.exports = {
     client
       .search(query)
       .then(response => {
-        res.json(categoryBuilder(response.jsonBody.businesses));
+        res.json(buildCategories(response.jsonBody.businesses));
       })
       .catch(e => {
         console.log(e);
       });
   },
   getRecommendations: function (req, res) {
-    const query = formatQuery(fakeQuery);
-    console.log(req.body)
-    client
-      .search(query)
-      .then(response => {
-        res.json(response.jsonBody.businesses.slice(0, 3));
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    // req.body.pollID="5abac807693048a6f297e7df";//debug for now
+    Poll.findById(req.body.pollID, (err,poll) => {
+      if(err) errHandler(err, res);
+      let query = updateQuery(poll, findTopCategories(poll));
+      client.search(query).then(response => {
+        res.json(buildRecommendations(response.jsonBody.businesses));
+      }).catch(e=>{console.log(e)});
+    });
   }
 };
 
@@ -52,7 +50,7 @@ formatQuery = function (query) {
   };
 };
 
-categoryBuilder = function (businesses) {
+buildCategories = function (businesses) {
   let categories = {};
   businesses.forEach(business => {
     business.categories.forEach(category => {
@@ -74,3 +72,35 @@ categoryBuilder = function (businesses) {
   categoryList.sort((a, b) => b.number - a.number);
   return categoryList;
 };
+
+findTopCategories = function (poll){
+  const maxVote = poll.selections.reduce((max, selection)=> max > selection.votes.number ? max : selection.votes.number, 0);
+  console.log("maxVote is: ", maxVote);
+  // console.log(poll.selections);
+  let topCategories = [];
+  poll.selections.forEach(selection => {
+    if(selection.votes.number == maxVote){
+      topCategories.push( selection.category);
+    }
+  })
+  console.log("top categories: ",topCategories);
+  return topCategories;
+}
+updateQuery = function (poll, topCategories) {
+  let query = formatQuery(poll.criteria);
+  // query.terms = [query.term].concat(topCategories); 
+  // delete query.term;
+  query.categories=topCategories.join(',')//"newamerican,asianfusion"
+  console.log("query is: ", query);
+  return query;
+}
+buildRecommendations = function (businesses) {
+  console.log(`Returning 3 out of ${businesses.length} businesses.`)
+  return businesses.slice(0,3);
+}
+function errHandler(err, res) {
+  console.log(err);
+  res.json({
+    "status: ": err
+  });
+}
