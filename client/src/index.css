@@ -20,6 +20,10 @@ body {
   margin-left: 1rem;
 }
 
+.rec-name {
+  margin-right: 1rem;
+}
+
 .end-poll {
   text-align: center;
   background-color: red;
