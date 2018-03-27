@@ -32,7 +32,12 @@ module.exports = function (app) {
         console.log("in polls");
         polls.create(request, response);
     });
-
+    app.post("/polls/result/:pollID", function(request,response){//req.body is a restaurant object
+        polls.postResult(request, response);
+    });
+    app.get("/polls/result/:pollID", function(request,response){//returns a restaurant object
+        polls.getResult(request, response);
+    });
     app.get("/polls/:id", function (request, response) {
         // console.log(request.params.id);
         // response.json(dummy_data);
@@ -44,7 +49,7 @@ module.exports = function (app) {
         polls.update(request, response);
     });
 
-    app.post("/yelp/recommendations/", function (request, response) {
+    app.post("/recommendations/", function (request, response) {
         console.log(request.body); //contains _id of the poll
         yelpQueries.getRecommendations(request, response);
     });
