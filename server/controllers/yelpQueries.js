@@ -28,6 +28,7 @@ module.exports = {
   },
   getRecommendations: function (req, res) {
     const query = formatQuery(fakeQuery);
+    console.log(req.body)
     client
       .search(query)
       .then(response => {
