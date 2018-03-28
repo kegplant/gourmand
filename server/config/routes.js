@@ -13,44 +13,46 @@ const polls = require("../controllers/polls.js");
 
 const dummy_data = require("./dummy_data");
 // Export all routes to server.js:
-module.exports = function (app) {
-    // Root route - renders index.ejs view (for socket.io example):
-    app.get("/", function (request, response) {
-        response.render("index");
-    });
+module.exports = function(app) {
+  // Root route - renders index.ejs view (for socket.io example):
+  app.get("/", function(request, response) {
+    response.render("index");
+  });
 
-    // Another example route - responses with JSON object:
-    app.get("/users", function (request, response) {
-        controller.getControllerMethod(request, response); //<-- CHANGE "controller" variable name(2)
-    }); // <-- DO NOT ADD COMMAS if ADDING ROUTES BELOW.
-    app.post("/yelp/categories", function (request, response) {
-        console.log("in server");
-        yelpQueries.categories(request, response);
-    });
+  // Another example route - responses with JSON object:
+  app.get("/users", function(request, response) {
+    controller.getControllerMethod(request, response); //<-- CHANGE "controller" variable name(2)
+  }); // <-- DO NOT ADD COMMAS if ADDING ROUTES BELOW.
+  app.post("/yelp/categories", function(request, response) {
+    console.log("in server");
+    yelpQueries.categories(request, response);
+  });
 
-    app.post("/polls/new", function (request, response) {
-        console.log("in polls");
-        polls.create(request, response);
-    });
-    app.post("/polls/result/:pollID", function(request,response){//req.body is a restaurant object
-        polls.postResult(request, response);
-    });
-    app.get("/polls/result/:pollID", function(request,response){//returns a restaurant object
-        polls.getResult(request, response);
-    });
-    app.get("/polls/:id", function (request, response) {
-        // console.log(request.params.id);
-        // response.json(dummy_data);
-        polls.get(request, response);
-    });
+  app.post("/polls/new", function(request, response) {
+    console.log("in polls");
+    polls.create(request, response);
+  });
+  app.post("/polls/result/:pollID", function(request, response) {
+    //req.body is a restaurant object
+    polls.postResult(request, response);
+  });
+  app.get("/polls/result/:pollID", function(request, response) {
+    //returns a restaurant object
+    polls.getResult(request, response);
+  });
+  app.get("/polls/:id", function(request, response) {
+    // console.log(request.params.id);
+    // response.json(dummy_data);
+    polls.get(request, response);
+  });
 
-    app.post("/votes/", function (request, response) {
-        console.log(request.body);
-        polls.update(request, response);
-    });
+  app.post("/votes/", function(request, response) {
+    console.log(request.body);
+    polls.update(request, response);
+  });
 
-    app.post("/recommendations/", function (request, response) {
-        console.log(request.body); //contains _id of the poll
-        yelpQueries.getRecommendations(request, response);
-    });
+  app.post("/recommendations/", function(request, response) {
+    console.log(request.body); //contains _id of the poll
+    yelpQueries.getRecommendations(request, response);
+  });
 };
