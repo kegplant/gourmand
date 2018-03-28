@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import FaStar from "react-icons/lib/fa/star";
 import FaStarHalfEmpty from "react-icons/lib/fa/star-half-empty";
+import { addChoice } from "../actions/choice";
 
 class Recommendations extends Component {
   constructor(props) {
@@ -12,7 +13,8 @@ class Recommendations extends Component {
   }
 
   handleRecClicked = (event, id) => {
-    console.log(id);
+    const { dispatch } = this.props;
+    dispatch(addChoice(id));
   };
 
   getStarsArray = recommendations => {
@@ -33,7 +35,7 @@ class Recommendations extends Component {
   };
 
   render() {
-    const { recommendations } = this.props;
+    const { recommendations, choice } = this.props;
     const starsArray = this.getStarsArray(recommendations);
     return (
       <div className="rec-container">
@@ -44,6 +46,9 @@ class Recommendations extends Component {
               className="recommendation"
               key={rec.id}
               onClick={e => this.handleRecClicked(e, index)}
+              style={{
+                border: choice === index ? "4px solid #ff4f00" : null
+              }}
             >
               <div className="row rec-title">
                 <p className="rec-name">{rec.name} </p>
@@ -73,10 +78,11 @@ class Recommendations extends Component {
   }
 }
 
-function mapStateToProps({ recommendations }) {
-  console.log(recommendations);
+function mapStateToProps({ recommendations, choice }) {
+  const currentChoice = choice.hasOwnProperty("choice") ? choice.choice : null;
   return {
-    recommendations
+    recommendations,
+    choice: currentChoice
   };
 }
 
