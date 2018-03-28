@@ -31,7 +31,8 @@ var pollSchema = new mongoose.Schema({
         voters: [String]
       }
     }
-  ]
+  ],
+  result: String
 });
 
 // Set this Schema in our Models as 'Schema_Instance':

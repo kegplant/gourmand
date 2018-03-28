@@ -32,7 +32,14 @@ module.exports = function(app) {
     console.log("in polls");
     polls.create(request, response);
   });
-
+  app.post("/polls/result/:pollID", function(request, response) {
+    //req.body is a restaurant object
+    polls.postResult(request, response);
+  });
+  app.get("/polls/result/:pollID", function(request, response) {
+    //returns a restaurant object
+    polls.getResult(request, response);
+  });
   app.get("/polls/:id", function(request, response) {
     // console.log(request.params.id);
     // response.json(dummy_data);
