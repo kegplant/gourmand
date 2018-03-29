@@ -47,6 +47,8 @@ class Details extends Component {
       })
     );
 
+    localStorage.setItem("originator", true);
+
     dispatch(handleCreatePoll());
   };
 
@@ -101,10 +103,7 @@ class Details extends Component {
 
 function mapStateToProps({ socket, mongo, selection }) {
   const { socketID } = socket;
-  const selected =
-    Object.keys(selection).length === 0 && selection.constructor === Object
-      ? false
-      : true;
+  const selected = Object.keys(selection).length <= 1 ? false : true;
 
   const { id } = mongo;
   return {

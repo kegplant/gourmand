@@ -20,7 +20,11 @@ export function _getSelection(id) {
 }
 
 export function _addVote(data) {
-  return axios.post("/votes/", data).then(result => {
-    console.log(result.data);
+  return axios.post("/votes/", data).then(result => {});
+}
+
+export function _getRecommendations(pollID) {
+  return axios.post("/recommendations/", { pollID }).then(data => {
+    return data.data;
   });
 }
