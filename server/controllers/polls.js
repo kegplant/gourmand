@@ -39,7 +39,7 @@ const fakePoll = {
 };
 
 module.exports = {
-  create: function (req, res) {
+  create: function(req, res) {
     //QUESTION FOR YOU SONG WHAT IS LINE 80 DOING?
     req.body.selections = Object.values(req.body.selection);
     Poll.create(req.body, (err, poll) => {
@@ -51,8 +51,9 @@ module.exports = {
       }
     });
   },
-  get: function (req, res) {
-    Poll.findOne({
+  get: function(req, res) {
+    Poll.findOne(
+      {
         _id: req.params.id
       },
       (err, poll) => {
@@ -65,8 +66,9 @@ module.exports = {
       }
     );
   },
-  update: function (req, res) {
-    Poll.findOne({
+  update: function(req, res) {
+    Poll.findOne(
+      {
         _id: req.body.pollID
       },
       (err, poll) => {
@@ -89,28 +91,34 @@ module.exports = {
       }
     );
   },
-  postResult: function (req, res) {
-    Poll.findOne({
-      _id: req.params.pollID
-    }, (err, poll) => {
-      if (err) errHandler(err, res);
-      poll.set({
-        result: JSON.stringify(req.body)
-      }); //req.body;//change to business.id later
-      poll.save((err, newPoll) => {
+  postResult: function(req, res) {
+    Poll.findOne(
+      {
+        _id: req.params.pollID
+      },
+      (err, poll) => {
         if (err) errHandler(err, res);
-        console.log("result posted for pollID: ", poll._id);
-        res.json(newPoll);
-      })
-    })
+        poll.set({
+          choice: JSON.stringify(req.body)
+        }); //req.body;//change to business.id later
+        poll.save((err, newPoll) => {
+          if (err) errHandler(err, res);
+          console.log("result posted for pollID: ", poll._id);
+          res.json(newPoll);
+        });
+      }
+    );
   },
-  getResult: function (req, res) {
-    Poll.findOne({
-      _id: req.params.pollID
-    }, (err, poll) => {
-      if (err) errHandler(err, res);
-      res.send(JSON.parse(poll.result));
-    })
+  getResult: function(req, res) {
+    Poll.findOne(
+      {
+        _id: req.params.pollID
+      },
+      (err, poll) => {
+        if (err) errHandler(err, res);
+        res.send(JSON.parse(poll.result));
+      }
+    );
   }
 };
 

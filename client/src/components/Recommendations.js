@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import FaStar from "react-icons/lib/fa/star";
 import FaStarHalfEmpty from "react-icons/lib/fa/star-half-empty";
 import { addChoice } from "../actions/choice";
+import socketIOClient from "socket.io-client";
+import { handleAddChoice } from "../actions/choice";
 
 class Recommendations extends Component {
   constructor(props) {
@@ -12,9 +14,30 @@ class Recommendations extends Component {
     };
   }
 
-  handleRecClicked = (event, id) => {
-    const { dispatch } = this.props;
-    dispatch(addChoice(id));
+  selectionClicked = event => {
+    const { choice, dispatch, mongo } = this.props;
+    const pollID = mongo.id;
+    dispatch(handleAddChoice(choice, pollID));
+    this.backButtonPressed();
+  };
+
+  backButtonPressed = event => {
+    const { history, match } = this.props;
+    const name = match.params.name;
+    const id = match.params.id;
+    const url = `/${name}/${id}`;
+    history.push(url);
+  };
+
+  handleRecClicked = (event, index) => {
+    const { dispatch, recommendations, mongo } = this.props;
+    dispatch(addChoice(recommendations[index]));
+  };
+
+  isDisabled = () => {
+    const { choice } = this.props;
+    const disabled = choice !== null ? false : true;
+    return disabled;
   };
 
   getStarsArray = recommendations => {
@@ -47,7 +70,7 @@ class Recommendations extends Component {
               key={rec.id}
               onClick={e => this.handleRecClicked(e, index)}
               style={{
-                border: choice === index ? "4px solid #ff4f00" : null
+                border: choice.id === rec.id ? "4px solid #ff4f00" : null
               }}
             >
               <div className="row rec-title">
@@ -72,17 +95,26 @@ class Recommendations extends Component {
             </div>
           );
         })}
-        <button className="btn btn-success">Share Selection</button>
+        <button
+          className="btn btn-success"
+          onClick={this.selectionClicked}
+          disabled={this.isDisabled()}
+        >
+          Share Selection
+        </button>
+        <button className="btn btn-warning" onClick={this.backButtonPressed}>
+          Back To Poll
+        </button>
       </div>
     );
   }
 }
 
-function mapStateToProps({ recommendations, choice }) {
-  const currentChoice = choice.hasOwnProperty("choice") ? choice.choice : null;
+function mapStateToProps({ recommendations, choice, mongo }) {
   return {
     recommendations,
-    choice: currentChoice
+    choice,
+    mongo
   };
 }
 

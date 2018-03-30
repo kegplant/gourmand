@@ -7,6 +7,7 @@ import { addSocketID } from "../actions/socket";
 import socketIOClient from "socket.io-client";
 import { handleGetRecommendations } from "../actions/recommendations";
 import Recommendations from "./Recommendations";
+import Choice from "./Choice";
 
 class Poll extends Component {
   constructor(props) {
@@ -36,7 +37,6 @@ class Poll extends Component {
     });
 
     if (localStorage.getItem("originator")) {
-      console.log("orig");
       this.setState(() => ({
         originator: true
       }));
@@ -74,10 +74,13 @@ class Poll extends Component {
     );
   };
 
-  handleEndPollClicked = event => {
-    const { dispatch } = this.props;
+  handleViewRecommendationsPollClicked = event => {
+    const { dispatch, history, match } = this.props;
     const { pollID } = this.state;
+    const name = match.params.name;
+    const url = `/recommendation/${name}/${pollID}`;
     dispatch(handleGetRecommendations(pollID));
+    history.push(url);
   };
 
   isDisabled = () => {
@@ -95,7 +98,7 @@ class Poll extends Component {
   };
 
   render() {
-    const { selection, hasRec } = this.props;
+    const { selection, hasChoice } = this.props;
     const { selected, copySuccess, pollID, originator } = this.state;
     const { address, location, price, meal } = this.props.criteria;
     const { pathname } = this.props.location;
@@ -122,9 +125,9 @@ class Poll extends Component {
     return (
       <div className="container">
         <h2 id="title">TasteBuds</h2>
-        {hasRec === true ? (
+        {hasChoice === true ? (
           <div>
-            <Recommendations />
+            <Choice />
           </div>
         ) : (
           <div>
@@ -162,9 +165,9 @@ class Poll extends Component {
               {originator === true ? (
                 <button
                   className="btn btn-danger end-poll"
-                  onClick={this.handleEndPollClicked}
+                  onClick={this.handleViewRecommendationsPollClicked}
                 >
-                  End Poll
+                  View Recommendations
                 </button>
               ) : null}
             </div>
@@ -197,8 +200,8 @@ class Poll extends Component {
   }
 }
 
-function mapPropsToState({ selection, criteria, recommendations }) {
-  const hasRec = recommendations.length === 0 ? false : true;
+function mapPropsToState({ selection, criteria, choice }) {
+  const hasChoice = choice.hasOwnProperty("id") ? true : false;
 
   const newSelection = Object.keys(selection).map(element => {
     const { category, number, image, votes } = selection[element];
@@ -213,7 +216,7 @@ function mapPropsToState({ selection, criteria, recommendations }) {
   return {
     selection: newSelection,
     criteria,
-    hasRec
+    hasChoice
   };
 }
 
