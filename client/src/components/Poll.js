@@ -36,13 +36,17 @@ class Poll extends Component {
       dispatch(handleGetPollData(pollID));
     });
 
+    socket.on("final_choice", function(data) {
+      console.log("final choice");
+    });
+
+    socket.emit("joined poll", pollID);
+
     if (localStorage.getItem("originator")) {
       this.setState(() => ({
         originator: true
       }));
     }
-
-    socket.emit("joined poll", pollID);
   }
 
   socketVote = () => {

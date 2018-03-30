@@ -9,11 +9,12 @@ export function addChoice(choice) {
   };
 }
 
-export function handleAddChoice(choice, pollID) {
+export function handleAddChoice(choice, pollID, cb) {
   return dispatch => {
     _addChoice(choice, pollID).then(result => {
       const choice = JSON.parse(result.choice);
       dispatch(addChoice(choice));
+      cb();
     });
   };
 }

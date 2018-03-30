@@ -10,14 +10,21 @@ class Recommendations extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: ""
+      socket: socketIOClient("http://localhost:8000")
     };
   }
+
+  socketChoice = () => {
+    const { socket } = this.state;
+    const { match } = this.props;
+    const pollID = match.params.id;
+    socket.emit("restaurant chosen", pollID);
+  };
 
   selectionClicked = event => {
     const { choice, dispatch, mongo } = this.props;
     const pollID = mongo.id;
-    dispatch(handleAddChoice(choice, pollID));
+    dispatch(handleAddChoice(choice, pollID, this.socketChoice));
     this.backButtonPressed();
   };
 

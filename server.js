@@ -99,6 +99,12 @@ io.sockets.on("connection", function(socket) {
     socket.join(pollID);
     io.to(pollID).emit("update_votes", { pollID: pollID });
   });
+
+  socket.on("restaurant chosen", pollID => {
+    console.log("restaurant chosen");
+    socket.join(pollID);
+    io.to(pollID).emit("final_choice", { pollID: pollID });
+  });
 });
 
 ////////////////////////////////
