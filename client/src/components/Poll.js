@@ -168,10 +168,10 @@ class Poll extends Component {
               </div>
               {originator === true ? (
                 <button
-                  className="btn btn-danger end-poll"
+                  className="copy-link"
                   onClick={this.handleViewRecommendationsPollClicked}
                 >
-                  View Recommendations
+                  View Results
                 </button>
               ) : null}
             </div>

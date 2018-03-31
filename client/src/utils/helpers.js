@@ -60,3 +60,20 @@ export function flattenSelections(selectionList) {
 
   return selection;
 }
+
+export function getStarsArray(recommendations) {
+  const result = recommendations.map(restaurant => {
+    const num = Math.floor(restaurant.rating);
+    const arr = [];
+    for (let i = 0; i < num; i++) {
+      arr.push("Star");
+    }
+
+    if (restaurant.rating !== num) {
+      arr.push("Half");
+    }
+    return arr;
+  });
+
+  return result;
+}

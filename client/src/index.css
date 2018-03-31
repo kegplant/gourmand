@@ -4,6 +4,23 @@ body {
   font-family: "Bree Serif";
   background: linear-gradient(tobottom, white, #c2bcb9);
   color: grey;
+  background-color: #eeeeee;
+}
+
+.container {
+  background-color: white;
+  padding: 1rem;
+}
+
+.card {
+  max-width: 50% !important;
+  max-height: 25% !important;
+  margin: 2rem auto;
+}
+
+.card-body-header {
+  margin-right: 2rem;
+  font-weight: bold;
 }
 
 #title {
@@ -40,7 +57,7 @@ body {
 
 .end-poll {
   text-align: center;
-  background-color: red;
+  background-color: grey;
   color: white !important;
 }
 
