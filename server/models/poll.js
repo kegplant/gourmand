@@ -32,7 +32,7 @@ var pollSchema = new mongoose.Schema({
       }
     }
   ],
-  result: String
+  choice: String
 });
 
 // Set this Schema in our Models as 'Schema_Instance':

@@ -100,6 +100,7 @@ io.sockets.on("connection", function(socket) {
     socket.join(pollID);
     io.to(pollID).emit("update_votes", { pollID: pollID });
   });
+
 });
 
 ////////////////////////////////

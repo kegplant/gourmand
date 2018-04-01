@@ -28,3 +28,9 @@ export function _getRecommendations(pollID) {
     return data.data;
   });
 }
+
+export function _addChoice(choice, pollID) {
+  return axios.post(`/polls/result/${pollID}`, choice).then(data => {
+    return data.data;
+  });
+}

@@ -4,7 +4,7 @@ export default function choice(state = {}, action) {
   switch (action.type) {
     case ADD_CHOICE:
       return {
-        choice: action.id
+        ...action.choice
       };
     default:
       return state;

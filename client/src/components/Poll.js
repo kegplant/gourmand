@@ -7,6 +7,8 @@ import { addSocketID } from "../actions/socket";
 import socketIOClient from "socket.io-client";
 import { handleGetRecommendations } from "../actions/recommendations";
 import Recommendations from "./Recommendations";
+import Choice from "./Choice";
+import { SERVER_URL, CLIENT_URL } from "../utils/helpers";
 
 class Poll extends Component {
   constructor(props) {
@@ -14,7 +16,7 @@ class Poll extends Component {
     this.state = {
       voted: false,
       copySuccess: false,
-      socket: socketIOClient("http://localhost:8000"),
+      socket: socketIOClient(SERVER_URL),
       pollID: this.props.match.params.id,
       originator: false
     };
@@ -35,14 +37,13 @@ class Poll extends Component {
       dispatch(handleGetPollData(pollID));
     });
 
+    socket.emit("joined poll", pollID);
+
     if (localStorage.getItem("originator")) {
-      console.log("orig");
       this.setState(() => ({
         originator: true
       }));
     }
-
-    socket.emit("joined poll", pollID);
   }
 
   socketVote = () => {
@@ -74,10 +75,13 @@ class Poll extends Component {
     );
   };
 
-  handleEndPollClicked = event => {
-    const { dispatch } = this.props;
+  handleViewRecommendationsPollClicked = event => {
+    const { dispatch, history, match } = this.props;
     const { pollID } = this.state;
+    const name = match.params.name;
+    const url = `/recommendation/${name}/${pollID}`;
     dispatch(handleGetRecommendations(pollID));
+    history.push(url);
   };
 
   isDisabled = () => {
@@ -95,12 +99,12 @@ class Poll extends Component {
   };
 
   render() {
-    const { selection, hasRec } = this.props;
+    const { selection, hasChoice } = this.props;
     const { selected, copySuccess, pollID, originator } = this.state;
     const { address, location, price, meal } = this.props.criteria;
     const { pathname } = this.props.location;
     const id = localStorage.getItem(pollID);
-    const link = `http://localhost:3000${pathname}`;
+    const link = `${CLIENT_URL}${pathname}`;
     const priceList = {
       1: "All",
       2: "$",
@@ -122,9 +126,9 @@ class Poll extends Component {
     return (
       <div className="container">
         <h2 id="title">TasteBuds</h2>
-        {hasRec === true ? (
+        {hasChoice === true ? (
           <div>
-            <Recommendations />
+            <Choice />
           </div>
         ) : (
           <div>
@@ -161,10 +165,10 @@ class Poll extends Component {
               </div>
               {originator === true ? (
                 <button
-                  className="btn btn-danger end-poll"
-                  onClick={this.handleEndPollClicked}
+                  className="copy-link"
+                  onClick={this.handleViewRecommendationsPollClicked}
                 >
-                  End Poll
+                  View Results
                 </button>
               ) : null}
             </div>
@@ -197,8 +201,8 @@ class Poll extends Component {
   }
 }
 
-function mapPropsToState({ selection, criteria, recommendations }) {
-  const hasRec = recommendations.length === 0 ? false : true;
+function mapPropsToState({ selection, criteria, choice }) {
+  const hasChoice = choice.hasOwnProperty("id") ? true : false;
 
   const newSelection = Object.keys(selection).map(element => {
     const { category, number, image, votes } = selection[element];
@@ -213,7 +217,7 @@ function mapPropsToState({ selection, criteria, recommendations }) {
   return {
     selection: newSelection,
     criteria,
-    hasRec
+    hasChoice
   };
 }
 

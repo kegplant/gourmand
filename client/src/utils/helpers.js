@@ -1,4 +1,8 @@
 // turns array of users into an object with mongo ids as keys
+
+export const SERVER_URL = "http://localhost:8000";
+export const CLIENT_URL = "http://localhost:3000";
+
 export function flattenCategories(categories) {
   const reducer = (acc, element) => {
     const { category, number, image } = element;
@@ -59,4 +63,32 @@ export function flattenSelections(selectionList) {
   }, {});
 
   return selection;
+}
+
+export function getStarsArray(recommendations) {
+  const result = recommendations.map(restaurant => {
+    const num = Math.floor(restaurant.rating);
+    const arr = [];
+    for (let i = 0; i < num; i++) {
+      arr.push("Star");
+    }
+
+    if (restaurant.rating !== num) {
+      arr.push("Half");
+    }
+    return arr;
+  });
+
+  return result;
+}
+
+export function buildCategoriesString(categories) {
+  const newCategories = categories.map((element, index) => {
+    if (index === categories.length - 1) {
+      return element.title;
+    } else {
+      return `${element.title},`;
+    }
+  });
+  return newCategories.join(" ");
 }
