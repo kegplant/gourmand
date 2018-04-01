@@ -55,7 +55,8 @@ app.set("view engine", "ejs");
 // -> front-end application directory name has to match above (i.e. "public")
 
 // Set Static Folder Directory (w/o front-end):
-app.use(express.static(path.join(__dirname, "./static")));
+// app.use(express.static(path.join(__dirname, "./static")));
+app.use(express.static(path.join(__dirname, "./client/build")));
 
 // Set Views Folder Directory:
 app.set("views", path.join(__dirname, "./views"));
