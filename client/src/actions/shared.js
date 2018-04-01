@@ -6,6 +6,7 @@ import { addAllSelections } from "./selection";
 import { reconcileSelections, flattenSelections } from "../utils/helpers";
 import { addDetails } from "./details";
 import { addMongo } from "./mongo";
+import { addChoice } from "./choice";
 
 export function handleCriteriaChange(newCriteria) {
   return (dispatch, getState) => {
@@ -44,9 +45,15 @@ export function handleGetPollData(id) {
     dispatch(showLoading());
     _getSelection(id).then(result => {
       const selections = flattenSelections(result.selections);
+
       dispatch(addAllSelections(selections));
       dispatch(changeCriteria(result.criteria));
       dispatch(addDetails(result.details));
+      if (result.choice) {
+        console.log(result.choice);
+        const choice = JSON.parse(result.choice);
+        dispatch(addChoice(choice));
+      }
       dispatch(hideLoading());
     });
   };

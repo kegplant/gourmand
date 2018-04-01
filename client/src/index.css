@@ -19,7 +19,7 @@ body {
 }
 
 .card-body-header {
-  margin-right: 2rem;
+  margin-right: 0.5rem;
   font-weight: bold;
 }
 
@@ -102,10 +102,14 @@ body {
   direction: horizontal;
 }
 
+.category-name {
+  margin-right: 2rem;
+}
+
 .recommendation {
   border: 1px solid #00b9b9;
-  height: 10rem;
-  width: 40rem;
+  height: 8rem;
+  max-width: 40rem;
   border-radius: 0.5rem;
   margin: 2rem auto;
 }

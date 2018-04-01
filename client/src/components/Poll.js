@@ -8,6 +8,7 @@ import socketIOClient from "socket.io-client";
 import { handleGetRecommendations } from "../actions/recommendations";
 import Recommendations from "./Recommendations";
 import Choice from "./Choice";
+import { SERVER_URL, CLIENT_URL } from "../utils/helpers";
 
 class Poll extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class Poll extends Component {
     this.state = {
       voted: false,
       copySuccess: false,
-      socket: socketIOClient("http://localhost:8000"),
+      socket: socketIOClient(SERVER_URL),
       pollID: this.props.match.params.id,
       originator: false
     };
@@ -34,10 +35,6 @@ class Poll extends Component {
     socket.on("update_votes", function(data) {
       const { pollID } = data;
       dispatch(handleGetPollData(pollID));
-    });
-
-    socket.on("final_choice", function(data) {
-      console.log("final choice");
     });
 
     socket.emit("joined poll", pollID);
@@ -107,7 +104,7 @@ class Poll extends Component {
     const { address, location, price, meal } = this.props.criteria;
     const { pathname } = this.props.location;
     const id = localStorage.getItem(pollID);
-    const link = `http://localhost:3000${pathname}`;
+    const link = `${CLIENT_URL}${pathname}`;
     const priceList = {
       1: "All",
       2: "$",

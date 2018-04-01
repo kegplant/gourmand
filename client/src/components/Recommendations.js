@@ -5,13 +5,13 @@ import FaStarHalfEmpty from "react-icons/lib/fa/star-half-empty";
 import { addChoice } from "../actions/choice";
 import socketIOClient from "socket.io-client";
 import { handleAddChoice } from "../actions/choice";
-import { getStarsArray } from "../utils/helpers";
+import { getStarsArray, SERVER_URL } from "../utils/helpers";
 
 class Recommendations extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      socket: socketIOClient("http://localhost:8000"),
+      socket: socketIOClient(SERVER_URL),
       selectionIndex: null
     };
   }
@@ -20,7 +20,8 @@ class Recommendations extends Component {
     const { socket } = this.state;
     const { match } = this.props;
     const pollID = match.params.id;
-    socket.emit("restaurant chosen", pollID);
+    console.log("socket choice fired");
+    socket.emit("user voted", pollID);
   };
 
   selectionClicked = event => {

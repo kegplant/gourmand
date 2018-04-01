@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { getStarsArray } from "../utils/helpers";
 import FaStar from "react-icons/lib/fa/star";
 import FaStarHalfEmpty from "react-icons/lib/fa/star-half-empty";
+import { buildCategoriesString } from "../utils/helpers";
+import { PhoneNumberFormat, PhoneNumberUtil } from "google-libphonenumber";
 
 class Choice extends Component {
   render() {
@@ -11,12 +13,17 @@ class Choice extends Component {
     const location = `${choice.location.address1} ${choice.location.city}, ${
       choice.location.state
     }`;
+    const categories = buildCategoriesString(choice.categories);
+    const phoneUtil = PhoneNumberUtil.getInstance();
+    const PNF = PhoneNumberFormat;
+    const number = phoneUtil.parseAndKeepRawInput(choice.phone);
+    const phoneNumber = phoneUtil.format(number, PNF.NATIONAL);
     return (
       <div>
         <h5>The organizer has selected a restaurant. Let's eat.</h5>
         <div className="card">
           <img
-            class="card-img-top"
+            className="card-img-top"
             src={choice.image_url}
             alt="Card image cap"
           />
@@ -44,14 +51,8 @@ class Choice extends Component {
             </div>
             <div className="card-text">
               <div className="row">
-                <p className="card-body-header">Restaurant Type:</p>
-                {choice.categories.map((element, index) => {
-                  return (
-                    <div className="row" key={element.alias}>
-                      <p>{element.title}</p>
-                    </div>
-                  );
-                })}
+                <p className="card-body-header">Restaurant Type(s):</p>
+                <p>{categories}</p>
               </div>
               <div className="row">
                 <p className="card-body-header">Address:</p>
@@ -59,7 +60,7 @@ class Choice extends Component {
               </div>
               <div className="row">
                 <p className="card-body-header">Phone:</p>
-                <p>{choice.phone}</p>
+                <p>{phoneNumber}</p>
               </div>
             </div>
           </div>
@@ -70,7 +71,6 @@ class Choice extends Component {
 }
 
 function mapStateToProps({ choice }) {
-  console.log(choice);
   return {
     choice
   };
