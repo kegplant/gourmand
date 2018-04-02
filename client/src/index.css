@@ -12,15 +12,15 @@ body {
   padding: 1rem;
 }
 
-.card {
-  max-width: 50% !important;
-  max-height: 25% !important;
-  margin: 2rem auto;
-}
-
 .card-body-header {
   margin-right: 0.5rem;
   font-weight: bold;
+}
+
+.card {
+  max-width: 50% !important;
+  max-height: 10% !important;
+  margin: 2rem auto;
 }
 
 #title {

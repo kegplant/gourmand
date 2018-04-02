@@ -9,6 +9,7 @@ import details from "./details";
 import mongo from "./mongo";
 import recommendations from "./recommendations";
 import choice from "./choice";
+import location from "./location";
 
 export default combineReducers({
   criteria,
@@ -19,5 +20,6 @@ export default combineReducers({
   mongo,
   recommendations,
   choice,
+  location,
   loadingBar: loadingBarReducer
 });
