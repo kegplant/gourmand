@@ -3,10 +3,8 @@ import { handleGetPollData } from "../actions/shared";
 import { connect } from "react-redux";
 import { generateUID } from "../utils/helpers";
 import { handleAddVote } from "../actions/selection";
-import { addSocketID } from "../actions/socket";
 import socketIOClient from "socket.io-client";
 import { handleGetRecommendations } from "../actions/recommendations";
-import Recommendations from "./Recommendations";
 import Choice from "./Choice";
 import { SERVER_URL, CLIENT_URL } from "../utils/helpers";
 
@@ -52,7 +50,6 @@ class Poll extends Component {
   };
 
   handleOnClick = (event, category, voters) => {
-    const { voted } = this.state;
     const { pollID } = this.state;
     const { dispatch } = this.props;
     const id = localStorage.getItem(pollID);
@@ -100,7 +97,7 @@ class Poll extends Component {
 
   render() {
     const { selection, hasChoice } = this.props;
-    const { selected, copySuccess, pollID, originator } = this.state;
+    const { copySuccess, pollID, originator } = this.state;
     const { address, location, price, meal } = this.props.criteria;
     const { pathname } = this.props.location;
     const id = localStorage.getItem(pollID);

@@ -7,6 +7,7 @@ import { handleCriteriaChange } from "../actions/shared";
 import Result from "./Result";
 import Details from "./Details";
 import None from "./None";
+import { handleGetGeolocation, addLongLat } from "../actions/location";
 
 class New extends Component {
   componentDidMount() {
@@ -19,7 +20,18 @@ class New extends Component {
         price: "1"
       })
     );
+
+    if ("geolocation" in navigator) {
+      dispatch(handleGetGeolocation());
+    }
+
+    if (localStorage.getItem("latitude")) {
+      const latitude = localStorage.getItem("latitude");
+      const longitude = localStorage.getItem("longitude");
+      dispatch(addLongLat(latitude, longitude));
+    }
   }
+
   render() {
     const { loading, history } = this.props;
     return (

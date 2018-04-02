@@ -48,6 +48,7 @@ class Location extends Component {
   };
 
   render() {
+    const { locationExists } = this.props;
     return (
       <div>
         <h5>Distance</h5>
@@ -66,11 +67,22 @@ class Location extends Component {
             onChange={this.handleAddressSelection}
             type="text"
             placeholder="enter address"
+            list="address"
           />
+          <datalist id="address">
+            {locationExists === true ? <option>Current Location</option> : null}
+          </datalist>
         </div>
       </div>
     );
   }
 }
 
-export default connect()(Location);
+function mapStateToProps({ location }) {
+  const locationExists = location.latitude ? true : false;
+  return {
+    locationExists
+  };
+}
+
+export default connect(mapStateToProps)(Location);

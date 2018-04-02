@@ -25,7 +25,7 @@ class Choice extends Component {
           <img
             className="card-img-top"
             src={choice.image_url}
-            alt="Card image cap"
+            alt="Chosen restaurant"
           />
           <div className="card-body">
             <div className="card-title">

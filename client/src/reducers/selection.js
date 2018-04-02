@@ -2,8 +2,7 @@ import {
   ADD_SELECTION,
   ADD_ALL_SELECTIONS,
   REMOVE_SELECTION,
-  REMOVE_ALL_SELECTIONS,
-  ADD_VOTE
+  REMOVE_ALL_SELECTIONS
 } from "../actions/selection";
 
 export default function selection(state = {}, action) {

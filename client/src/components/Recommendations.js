@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import FaStar from "react-icons/lib/fa/star";
 import FaStarHalfEmpty from "react-icons/lib/fa/star-half-empty";
-import { addChoice } from "../actions/choice";
 import socketIOClient from "socket.io-client";
 import { handleAddChoice } from "../actions/choice";
 import { getStarsArray, SERVER_URL } from "../utils/helpers";
@@ -20,7 +19,6 @@ class Recommendations extends Component {
     const { socket } = this.state;
     const { match } = this.props;
     const pollID = match.params.id;
-    console.log("socket choice fired");
     socket.emit("user voted", pollID);
   };
 
